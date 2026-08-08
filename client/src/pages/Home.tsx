@@ -26,6 +26,7 @@ interface CartItem {
   quantity: number;
   image: string;
   sizeOrType?: string;
+  imageStyle?: { objectPosition: string };
 }
 
 export default function Home() {
@@ -56,7 +57,8 @@ export default function Home() {
         price,
         quantity: 1,
         image: item.image,
-        sizeOrType
+        sizeOrType,
+        imageStyle: item.imageStyle
       }];
     });
     toast.success(`تم إضافة "${item.name}" إلى السلة بنجاح`);
@@ -233,16 +235,21 @@ export default function Home() {
                   <div
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className="group relative h-64 rounded-3xl overflow-hidden border-2 border-[#D4AF37]/30 hover:border-[#D4AF37] cursor-pointer shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(212,175,55,0.25)] flex flex-col justify-end p-6"
+                    className="group relative h-64 rounded-3xl overflow-hidden border-2 border-[#D4AF37]/30 hover:border-[#D4AF37] cursor-pointer shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(212,175,55,0.25)] flex flex-col justify-end p-6 bg-black"
                   >
                     {repItem && (
-                      <div className="absolute inset-0">
+                      <div className="absolute inset-0 overflow-hidden">
                         <img 
                           src={repItem.image} 
                           alt={cat.name} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          style={{
+                            objectPosition: repItem.imageStyle?.objectPosition || 'center',
+                            transform: 'scale(2.2)',
+                            transformOrigin: repItem.imageStyle?.objectPosition || 'center'
+                          }}
+                          className="w-full h-full object-cover group-hover:scale-[2.4] transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/70 to-transparent"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/60 to-transparent"></div>
                       </div>
                     )}
 
@@ -318,7 +325,18 @@ export default function Home() {
               ) : (
                 cart.map(item => (
                   <div key={item.id} className="flex items-center gap-4 p-4 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/15">
-                    <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-lg" />
+                    <div className="w-16 h-16 rounded-lg overflow-hidden relative flex-shrink-0 bg-black">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        style={{
+                          objectPosition: item.imageStyle?.objectPosition || 'center',
+                          transform: 'scale(2.5)',
+                          transformOrigin: item.imageStyle?.objectPosition || 'center'
+                        }}
+                        className="w-full h-full object-cover" 
+                      />
+                    </div>
                     <div className="flex-1">
                       <h4 className="font-bold text-sm text-gray-200">{item.name}</h4>
                       <span className="text-[#D4AF37] font-black text-sm">{item.price * item.quantity} ج.م</span>
@@ -448,6 +466,7 @@ export default function Home() {
 
 function renderItemCard(item: MenuItem, addToCart: (item: MenuItem, price: number, sizeOrType?: string) => void) {
   const hasMultiplePrices = item.prices && item.prices.length > 0;
+  const objPos = item.imageStyle?.objectPosition || 'center';
 
   return (
     <div 
@@ -455,21 +474,26 @@ function renderItemCard(item: MenuItem, addToCart: (item: MenuItem, price: numbe
       className="group bg-[#121212] rounded-2xl overflow-hidden border border-[#D4AF37]/25 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] flex flex-col justify-between"
     >
       <div>
-        <div className="relative h-52 overflow-hidden bg-[#181818]">
+        <div className="relative h-52 overflow-hidden bg-black">
           <img 
             src={item.image} 
             alt={item.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+            style={{
+              objectPosition: objPos,
+              transform: 'scale(2.5)',
+              transformOrigin: objPos
+            }}
+            className="w-full h-full object-cover group-hover:scale-[2.7] transition-transform duration-500" 
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-80"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-80 pointer-events-none"></div>
           
           {item.badge && (
-            <span className="absolute top-3 right-3 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-black px-3 py-1 rounded-full shadow-lg">
+            <span className="absolute top-3 right-3 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-black px-3 py-1 rounded-full shadow-lg z-10">
               {item.badge}
             </span>
           )}
           {item.popular && !item.badge && (
-            <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+            <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1 z-10">
               <Star className="w-3 h-3 fill-white" />
               <span>الأكثر طلباً</span>
             </span>
