@@ -13,9 +13,8 @@ import {
   Trash2, 
   CheckCircle2, 
   Flame,
-  UtensilsCrossed,
-  ChefHat,
-  ChevronRight
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 import { CATEGORIES, MENU_ITEMS, RESTAURANT_INFO, MenuItem } from '../data/menuData';
 import { toast } from 'sonner';
@@ -30,17 +29,16 @@ interface CartItem {
 }
 
 export default function Home() {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<{ item: MenuItem; selectedPrice: number; sizeOrType?: string } | null>(null);
   const [orderCompleted, setOrderCompleted] = useState(false);
 
-  // Filter items
   const filteredItems = MENU_ITEMS.filter(item => {
-    const matchesCategory = activeCategory === 'all' || item.category === activeCategory;
-    const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    const matchesCategory = !activeCategory || item.category === activeCategory;
+    const matchesSearch = !searchQuery || 
+                          item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
@@ -82,19 +80,27 @@ export default function Home() {
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleCheckout = () => {
+  const handleWhatsAppCheckout = () => {
     if (cart.length === 0) {
       toast.error('السلة فارغة!');
       return;
     }
+
+    const orderText = cart.map(i => `- ${i.name} × ${i.quantity} = ${i.price * i.quantity} ج.م`).join('\n');
+    const message = `مرحباً مطعم الكشك، أود طلب الأوريجينال الآتي:\n\n${orderText}\n\n*الإجمالي الكلي: ${totalPrice} ج.م*`;
+    const whatsappUrl = `https://wa.me/${RESTAURANT_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
+    
     setOrderCompleted(true);
-    toast.success('تم إرسال طلبك بنجاح! سيتم التواصل معك قريباً');
+    toast.success('جاري توجيهك إلى واتساب المطعم لإتمام الطلب...');
     setTimeout(() => {
+      window.open(whatsappUrl, '_blank');
       setCart([]);
       setOrderCompleted(false);
       setIsCartOpen(false);
-    }, 4000);
+    }, 1500);
   };
+
+  const selectedCategoryObj = CATEGORIES.find(c => c.id === activeCategory);
 
   return (
     <div className="min-h-screen bg-[#070707] text-gray-100 flex flex-col font-['Cairo',sans-serif]">
@@ -104,7 +110,7 @@ export default function Home() {
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           
           {/* Logo & Brand */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveCategory(null)}>
             <div className="w-12 h-12 rounded-full border-2 border-[#D4AF37] bg-[#1a1a1a] flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
               <span className="text-[#D4AF37] font-extrabold text-xl">ك</span>
             </div>
@@ -121,11 +127,13 @@ export default function Home() {
           {/* Quick Actions / Navigation */}
           <div className="flex items-center gap-4">
             <a 
-              href="tel:01000000000" 
-              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-[#1c1c1c] border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300 text-sm font-bold"
+              href={`https://wa.me/${RESTAURANT_INFO.whatsapp}`} 
+              target="_blank"
+              rel="noreferrer"
+              className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-600 hover:text-white transition-all duration-300 text-sm font-bold"
             >
-              <Phone className="w-4 h-4" />
-              <span>طلب سريع</span>
+              <MessageCircle className="w-4 h-4" />
+              <span>{RESTAURANT_INFO.phone}</span>
             </a>
 
             {/* Cart Button */}
@@ -146,21 +154,21 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-b from-[#121212] via-[#0b0b0b] to-[#070707] border-b border-[#D4AF37]/15">
+      <section className="relative py-12 md:py-16 overflow-hidden bg-gradient-to-b from-[#121212] via-[#0b0b0b] to-[#070707] border-b border-[#D4AF37]/15">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
         <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-bold mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-bold mb-4">
             <Flame className="w-4 h-4" />
             <span>جودة المكونات سر الطعم الأصلي</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
-            استمتع بألذ أطباق <span className="gold-gradient-text">الحواوشي والبرجر والفرايز</span>
+          <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
+            استمتع بألذ أطباق <span className="gold-gradient-text">الكشك</span>
           </h2>
-          <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto font-medium">
-            تخيل طعم اللحم الطازج المتبل بخلطة الكشك السرية، مع أشهى الأطباق والوجبات السريعة المحضرة بعناية لتناسب مزاجك.
+          <p className="text-gray-300 text-base md:text-lg mb-6 max-w-2xl mx-auto font-medium">
+            اختر القسم الذي تحبه واستعرض أشهى الأطباق المجهزة خصيصاً لتناسب مزاجك.
           </p>
 
-          {/* Search Bar */}
+          {/* Global Search Bar */}
           <div className="max-w-xl mx-auto relative shadow-2xl">
             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-[#D4AF37]">
               <Search className="w-5 h-5" />
@@ -169,123 +177,100 @@ export default function Home() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="ابحث عن وجبتك المفضلة (حواوشي، تشيكن سماش، فرايز...)"
-              className="w-full pr-12 pl-4 py-4 rounded-2xl bg-[#141414] border border-[#D4AF37]/40 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 text-base font-medium transition-all"
+              placeholder="ابحث عن أي طبق في المنيو..."
+              className="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-[#141414] border border-[#D4AF37]/40 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25 text-base font-medium transition-all"
             />
           </div>
         </div>
       </section>
 
-      {/* Main Menu Section */}
-      <section className="py-12 flex-1 container mx-auto px-4">
+      {/* Main Content: Categories View or Selected Category Items View */}
+      <section className="py-10 flex-1 container mx-auto px-4">
         
-        {/* Categories Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-10 no-scrollbar justify-start md:justify-center">
-          {CATEGORIES.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2.5 rounded-xl font-bold text-sm whitespace-nowrap transition-all duration-300 flex items-center gap-2 ${
-                activeCategory === cat.id
-                  ? 'bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black shadow-[0_0_15px_rgba(212,175,55,0.4)] scale-105'
-                  : 'bg-[#141414] text-gray-300 border border-[#D4AF37]/20 hover:border-[#D4AF37]/60 hover:text-[#D4AF37]'
-              }`}
-            >
-              <span>{cat.name}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Menu Grid */}
-        {filteredItems.length === 0 ? (
-          <div className="text-center py-20 bg-[#121212] rounded-2xl border border-[#D4AF37]/20">
-            <UtensilsCrossed className="w-16 h-16 mx-auto text-[#D4AF37]/40 mb-4" />
-            <h3 className="text-xl font-bold text-gray-300 mb-2">عذراً، لم نجد نتائج مطابقة</h3>
-            <p className="text-gray-500">جرب البحث بكلمة أخرى أو تصفح الأقسام المختلفة.</p>
+        {searchQuery ? (
+          <div>
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-2xl font-black text-[#D4AF37]">نتائج البحث عن: "{searchQuery}"</h3>
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="px-4 py-2 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/30 text-sm font-bold text-gray-300 hover:text-[#D4AF37]"
+              >
+                مسح البحث
+              </button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredItems.map(item => renderItemCard(item, addToCart))}
+            </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredItems.map(item => {
-              const hasMultiplePrices = item.prices && item.prices.length > 0;
-              const basePrice = item.price || (item.prices ? item.prices[0].price : 0);
+        ) : activeCategory === null ? (
+          <div>
+            <div className="text-center mb-10">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-gray-100 mb-2">أقسام المنيو الرئيسية</h3>
+              <p className="text-gray-400 text-sm">اضغط على أي قسم لتصفح محتوياته والأطباق الخاصة به</p>
+            </div>
 
-              return (
-                <div 
-                  key={item.id}
-                  className="group bg-[#121212] rounded-2xl overflow-hidden border border-[#D4AF37]/25 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Item Image with Badge */}
-                    <div className="relative h-52 overflow-hidden bg-[#181818]">
-                      <img 
-                        src={item.image} 
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-80"></div>
-                      
-                      {item.badge && (
-                        <span className="absolute top-3 right-3 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-black px-3 py-1 rounded-full shadow-lg">
-                          {item.badge}
-                        </span>
-                      )}
-                      {item.popular && !item.badge && (
-                        <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                          <Star className="w-3 h-3 fill-white" />
-                          <span>الأكثر طلباً</span>
-                        </span>
-                      )}
-                    </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {CATEGORIES.map(cat => {
+                const count = MENU_ITEMS.filter(i => i.category === cat.id).length;
+                const repItem = MENU_ITEMS.find(i => i.category === cat.id);
 
-                    {/* Content */}
-                    <div className="p-5">
-                      <h3 className="text-xl font-bold text-gray-100 mb-2 group-hover:text-[#D4AF37] transition-colors">
-                        {item.name}
-                      </h3>
-                      <p className="text-gray-400 text-sm line-clamp-2 mb-4">
-                        {item.description || 'مغذي ولذيذ محضر بطريقة مطعم الكشك الخاصة.'}
+                return (
+                  <div
+                    key={cat.id}
+                    onClick={() => setActiveCategory(cat.id)}
+                    className="group relative h-64 rounded-3xl overflow-hidden border-2 border-[#D4AF37]/30 hover:border-[#D4AF37] cursor-pointer shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_10px_30px_rgba(212,175,55,0.25)] flex flex-col justify-end p-6"
+                  >
+                    {repItem && (
+                      <div className="absolute inset-0">
+                        <img 
+                          src={repItem.image} 
+                          alt={cat.name} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/70 to-transparent"></div>
+                      </div>
+                    )}
+
+                    <div className="relative z-10">
+                      <div className="text-3xl mb-2">{cat.icon}</div>
+                      <h4 className="text-2xl font-black text-white group-hover:text-[#D4AF37] transition-colors mb-1">
+                        {cat.name}
+                      </h4>
+                      <p className="text-gray-300 text-xs font-semibold flex items-center justify-between">
+                        <span>{count} صنف متاح</span>
+                        <span className="flex items-center gap-1 text-[#D4AF37] group-hover:translate-x-[-4px] transition-transform">
+                          <span>استعرض القسم</span>
+                          <ArrowRight className="w-4 h-4 rotate-180" />
+                        </span>
                       </p>
                     </div>
                   </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div>
+            <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#D4AF37]/20">
+              <button
+                onClick={() => setActiveCategory(null)}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#141414] border border-[#D4AF37]/30 text-[#D4AF37] font-bold text-sm hover:bg-[#D4AF37] hover:text-black transition-all"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>العودة لجميع الأقسام</span>
+              </button>
+              
+              <h3 className="text-2xl md:text-3xl font-black gold-gradient-text">
+                {selectedCategoryObj?.name}
+              </h3>
+            </div>
 
-                  {/* Pricing and Action */}
-                  <div className="p-5 pt-0 mt-auto border-t border-[#D4AF37]/10 flex flex-col gap-3">
-                    {hasMultiplePrices ? (
-                      <div className="flex flex-col gap-2 pt-2">
-                        <div className="text-xs text-[#D4AF37] font-bold">الأسعار حسب الحجم:</div>
-                        <div className="grid grid-cols-2 gap-2">
-                          {item.prices!.map((p, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => addToCart(item, p.price, p.sizeOrType)}
-                              className="flex items-center justify-between p-2 rounded-lg bg-[#1a1a1a] border border-[#D4AF37]/20 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all text-xs font-bold"
-                            >
-                              <span className="text-gray-300">{p.sizeOrType}</span>
-                              <span className="text-[#D4AF37] font-black">{p.price} ج.م</span>
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-between pt-2">
-                        <span className="text-2xl font-black text-[#D4AF37]">
-                          {item.price} <span className="text-xs text-gray-400 font-normal">جنيهاً</span>
-                        </span>
-                        <button
-                          onClick={() => addToCart(item, item.price!)}
-                          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black font-bold text-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-[0_0_10px_rgba(212,175,55,0.3)]"
-                        >
-                          <Plus className="w-4 h-4 stroke-[3]" />
-                          <span>أضف للسلة</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredItems.map(item => renderItemCard(item, addToCart))}
+            </div>
           </div>
         )}
+
       </section>
 
       {/* Cart Drawer Modal */}
@@ -313,7 +298,7 @@ export default function Home() {
                 <div className="text-center py-20">
                   <ShoppingBag className="w-16 h-16 mx-auto text-gray-600 mb-4" />
                   <p className="text-gray-400 font-semibold">سلة الطلبات فارغة حالياً</p>
-                  <p className="text-gray-600 text-sm mt-1">اختر وجباتك المفضلة من المنيو لإضافتها.</p>
+                  <p className="text-gray-600 text-sm mt-1">اختر وجباتك المفضلة من الأقسام لإضافتها.</p>
                 </div>
               ) : (
                 cart.map(item => (
@@ -349,7 +334,7 @@ export default function Home() {
               )}
             </div>
 
-            {/* Cart Footer / Checkout */}
+            {/* Cart Footer / WhatsApp Checkout */}
             {cart.length > 0 && (
               <div className="p-6 border-t border-[#D4AF37]/20 bg-[#161616] space-y-4">
                 <div className="flex items-center justify-between text-lg font-bold">
@@ -360,14 +345,15 @@ export default function Home() {
                 {orderCompleted ? (
                   <div className="p-4 rounded-xl bg-emerald-950/80 border border-emerald-500 text-emerald-300 text-center flex items-center justify-center gap-2 font-bold animate-fadeIn">
                     <CheckCircle2 className="w-5 h-5" />
-                    <span>تم تأكيد طلبك بنجاح! شكراً لاختيارك الكشك</span>
+                    <span>جاري التوجيه إلى واتساب المطعم...</span>
                   </div>
                 ) : (
                   <button
-                    onClick={handleCheckout}
-                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black font-extrabold text-base shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all"
+                    onClick={handleWhatsAppCheckout}
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-extrabold text-base shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
-                    تأكيد وإرسال الطلب
+                    <MessageCircle className="w-5 h-5 fill-current" />
+                    <span>اطلب عبر الواتساب ({RESTAURANT_INFO.phone})</span>
                   </button>
                 )}
               </div>
@@ -405,21 +391,23 @@ export default function Home() {
           <div>
             <h3 className="text-lg font-bold text-[#D4AF37] mb-4">أقسام المنيو</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li><button onClick={() => setActiveCategory('hawaoshi')} className="hover:text-[#D4AF37] transition-colors">حواوشي بلدي وشرقي</button></li>
-              <li><button onClick={() => setActiveCategory('chicken-burger')} className="hover:text-[#D4AF37] transition-colors">برجر فراخ كرسبي</button></li>
-              <li><button onClick={() => setActiveCategory('smash-burger')} className="hover:text-[#D4AF37] transition-colors">تشيكن وسماش برجر</button></li>
-              <li><button onClick={() => setActiveCategory('meals')} className="hover:text-[#D4AF37] transition-colors">الوجبات العائلية والفردية</button></li>
-              <li><button onClick={() => setActiveCategory('crispy-box')} className="hover:text-[#D4AF37] transition-colors">بوكس كريسبى البطاطس والصوصات</button></li>
+              {CATEGORIES.map(cat => (
+                <li key={cat.id}>
+                  <button onClick={() => { setActiveCategory(cat.id); setSearchQuery(''); }} className="hover:text-[#D4AF37] transition-colors">
+                    {cat.name}
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact & Hours */}
           <div>
-            <h3 className="text-lg font-bold text-[#D4AF37] mb-4">خدمة العملاء والتوصيل</h3>
+            <h3 className="text-lg font-bold text-[#D4AF37] mb-4">خدمة العملاء والطلب</h3>
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#D4AF37]" />
-                <span>الخط الساخن: 010XXXXXXXX</span>
+                <span>رقم الواتساب للطلبات: {RESTAURANT_INFO.phone}</span>
               </li>
               <li className="flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#D4AF37]" />
@@ -439,6 +427,82 @@ export default function Home() {
         </div>
       </footer>
 
+    </div>
+  );
+}
+
+function renderItemCard(item: MenuItem, addToCart: (item: MenuItem, price: number, sizeOrType?: string) => void) {
+  const hasMultiplePrices = item.prices && item.prices.length > 0;
+
+  return (
+    <div 
+      key={item.id}
+      className="group bg-[#121212] rounded-2xl overflow-hidden border border-[#D4AF37]/25 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(212,175,55,0.15)] flex flex-col justify-between"
+    >
+      <div>
+        <div className="relative h-52 overflow-hidden bg-[#181818]">
+          <img 
+            src={item.image} 
+            alt={item.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-80"></div>
+          
+          {item.badge && (
+            <span className="absolute top-3 right-3 bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black text-xs font-black px-3 py-1 rounded-full shadow-lg">
+              {item.badge}
+            </span>
+          )}
+          {item.popular && !item.badge && (
+            <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
+              <Star className="w-3 h-3 fill-white" />
+              <span>الأكثر طلباً</span>
+            </span>
+          )}
+        </div>
+
+        <div className="p-5">
+          <h3 className="text-xl font-bold text-gray-100 mb-2 group-hover:text-[#D4AF37] transition-colors">
+            {item.name}
+          </h3>
+          <p className="text-gray-400 text-sm line-clamp-2 mb-4">
+            {item.description || 'مغذي ولذيذ محضر بطريقة مطعم الكشك الخاصة.'}
+          </p>
+        </div>
+      </div>
+
+      <div className="p-5 pt-0 mt-auto border-t border-[#D4AF37]/10 flex flex-col gap-3">
+        {hasMultiplePrices ? (
+          <div className="flex flex-col gap-2 pt-2">
+            <div className="text-xs text-[#D4AF37] font-bold">الأسعار حسب الحجم:</div>
+            <div className="grid grid-cols-2 gap-2">
+              {item.prices!.map((p, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => addToCart(item, p.price, p.sizeOrType)}
+                  className="flex items-center justify-between p-2 rounded-lg bg-[#1a1a1a] border border-[#D4AF37]/20 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all text-xs font-bold"
+                >
+                  <span className="text-gray-300">{p.sizeOrType}</span>
+                  <span className="text-[#D4AF37] font-black">{p.price} ج.م</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between pt-2">
+            <span className="text-2xl font-black text-[#D4AF37]">
+              {item.price} <span className="text-xs text-gray-400 font-normal">جنيهاً</span>
+            </span>
+            <button
+              onClick={() => addToCart(item, item.price!)}
+              className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black font-bold text-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5 shadow-[0_0_10px_rgba(212,175,55,0.3)]"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+              <span>أضف للسلة</span>
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

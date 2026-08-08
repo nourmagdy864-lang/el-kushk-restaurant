@@ -11,14 +11,13 @@ export interface MenuItem {
 }
 
 export const CATEGORIES = [
-  { id: 'all', name: 'الكل' },
-  { id: 'hawaoshi', name: 'حواوشي' },
-  { id: 'chicken-burger', name: 'برجر فراخ' },
-  { id: 'smash-burger', name: 'تشيكن سماش' },
-  { id: 'meals', name: 'الوجبات' },
-  { id: 'fries', name: 'فرايز' },
-  { id: 'crispy-box', name: 'بوكس كريسبى' },
-  { id: 'extras', name: 'إضافات' },
+  { id: 'hawaoshi', name: 'حواوشي', icon: '🫓' },
+  { id: 'chicken-burger', name: 'برجر فراخ', icon: '🍔' },
+  { id: 'smash-burger', name: 'تشيكن سماش', icon: '🔥' },
+  { id: 'meals', name: 'الوجبات', icon: '🍱' },
+  { id: 'fries', name: 'فرايز', icon: '🍟' },
+  { id: 'crispy-box', name: 'بوكس كريسبى', icon: '📦' },
+  { id: 'extras', name: 'إضافات', icon: '🧀' },
 ];
 
 export const MENU_ITEMS: MenuItem[] = [
@@ -29,16 +28,16 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة مفرومة طازجة بتوابل الكشك الأصلية في عيش بلدي مقرمش',
     price: 75,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop',
     popular: true
   },
   {
     id: 'h-2',
     name: 'حواوشي لحمة دبل',
     category: 'hawaoshi',
-    description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة',
+    description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة في عيش بلدي',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-3',
@@ -46,30 +45,30 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة مفرومة مع طبقة غنية من جبنة الشيدر السائحة',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-4',
     name: 'حواوشي لحمة موتزاريلا',
     category: 'hawaoshi',
-    description: 'لحمة طازجة مغطاة بجبنة الموتزاريلا المطاطية',
+    description: 'لحمة طازجة مغطاة بجبنة الموتزاريلا المطاطية السائحة',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop',
     popular: true
   },
   {
     id: 'h-5',
     name: 'حواوشي لحمة بيج تيستي',
     category: 'hawaoshi',
-    description: 'مع صوص بيج تيستي المميز الخاص بالمطعم',
+    description: 'مع صوص بيج تيستي المميز الخاص بالمطعم واللحم الطازج',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-6',
     name: 'حواوشي بسطرمة شيدر',
     category: 'hawaoshi',
-    description: 'بسطرمة أصلية مع جبنة شيدر غنية',
+    description: 'بسطرمة أصلية مع جبنة شيدر غنية ومحمرة',
     price: 125,
     image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=600&auto=format&fit=crop'
   },
@@ -85,7 +84,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'h-8',
     name: 'حواوشي سلامي موتزاريلا',
     category: 'hawaoshi',
-    description: 'سلامي مدخن مع موتزاريلا سايحة',
+    description: 'سلامي مدخن مع جبنة موتزاريلا سايحة',
     price: 125,
     image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop'
   },
@@ -102,9 +101,9 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'h-10',
     name: 'حواوشي سجق ساده',
     category: 'hawaoshi',
-    description: 'سجق بلدي شرقي بخلطة التوابل الحارة',
+    description: 'سجق بلدي شرقي بخلطة التوابل الحارة في عيش بلدي',
     price: 80,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-11',
@@ -112,7 +111,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل سجق بلدي مشوي ومتبل بإتقان',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-12',
@@ -120,15 +119,15 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع جبنة شيدر مذابة',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-13',
     name: 'حواوشي سجق موتزاريلا',
     category: 'hawaoshi',
-    description: 'سجق شرقي مع جبنة موتزاريلا',
+    description: 'سجق شرقي مع جبنة موتزاريلا مطاطية',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-14',
@@ -152,7 +151,7 @@ export const MENU_ITEMS: MenuItem[] = [
     id: 'cb-1',
     name: 'تشيكن كلاسيك',
     category: 'chicken-burger',
-    description: 'دجاج كرسبي مقرمش مع خس، طماطم، وصوص الكشك الخاص',
+    description: 'دجاج كرسبي مقرمش مع خس، طماطم، وصوص الكشك الخاص في خبز كيزر طري',
     prices: [
       { sizeOrType: 'سينجل', price: 80 },
       { sizeOrType: 'دبل', price: 120 }
@@ -492,7 +491,8 @@ export const RESTAURANT_INFO = {
   englishName: 'EL KUSHK',
   tagline: 'طعم بيكمل مزاجك',
   established: 'EST. 2018',
-  phone: '010XXXXXXXX',
+  phone: '01096543496',
+  whatsapp: '201096543496',
   instagram: '@elkushk.eg',
   facebook: 'elkushk.eg',
   deliveryTime: 'خدمة توصيل سريعة'
