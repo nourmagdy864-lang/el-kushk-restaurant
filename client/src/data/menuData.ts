@@ -1,0 +1,499 @@
+export interface MenuItem {
+  id: string;
+  name: string;
+  category: string;
+  description?: string;
+  price?: number;
+  prices?: { sizeOrType: string; price: number }[];
+  image: string;
+  badge?: string;
+  popular?: boolean;
+}
+
+export const CATEGORIES = [
+  { id: 'all', name: 'الكل' },
+  { id: 'hawaoshi', name: 'حواوشي' },
+  { id: 'chicken-burger', name: 'برجر فراخ' },
+  { id: 'smash-burger', name: 'تشيكن سماش' },
+  { id: 'meals', name: 'الوجبات' },
+  { id: 'fries', name: 'فرايز' },
+  { id: 'crispy-box', name: 'بوكس كريسبى' },
+  { id: 'extras', name: 'إضافات' },
+];
+
+export const MENU_ITEMS: MenuItem[] = [
+  // حواوشي
+  {
+    id: 'h-1',
+    name: 'حواوشي لحمة ساده',
+    category: 'hawaoshi',
+    description: 'لحمة مفرومة طازجة بتوابل الكشك الأصلية في عيش بلدي مقرمش',
+    price: 75,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'h-2',
+    name: 'حواوشي لحمة دبل',
+    category: 'hawaoshi',
+    description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة',
+    price: 90,
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-3',
+    name: 'حواوشي لحمة شيدر',
+    category: 'hawaoshi',
+    description: 'لحمة مفرومة مع طبقة غنية من جبنة الشيدر السائحة',
+    price: 90,
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-4',
+    name: 'حواوشي لحمة موتزاريلا',
+    category: 'hawaoshi',
+    description: 'لحمة طازجة مغطاة بجبنة الموتزاريلا المطاطية',
+    price: 90,
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'h-5',
+    name: 'حواوشي لحمة بيج تيستي',
+    category: 'hawaoshi',
+    description: 'مع صوص بيج تيستي المميز الخاص بالمطعم',
+    price: 90,
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-6',
+    name: 'حواوشي بسطرمة شيدر',
+    category: 'hawaoshi',
+    description: 'بسطرمة أصلية مع جبنة شيدر غنية',
+    price: 125,
+    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-7',
+    name: 'حواوشي لحمة رومي موتزاريلا',
+    category: 'hawaoshi',
+    description: 'مزيج فاخر من اللحمة والجبنة الرومي والموتزاريلا',
+    price: 120,
+    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-8',
+    name: 'حواوشي سلامي موتزاريلا',
+    category: 'hawaoshi',
+    description: 'سلامي مدخن مع موتزاريلا سايحة',
+    price: 125,
+    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-9',
+    name: 'حواوشي ميكس لحوم',
+    category: 'hawaoshi',
+    description: 'تشكيلة مميزة من ألذ اللحوم المدخنة والمفرومة والجبن',
+    price: 130,
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop',
+    badge: 'الأكثر طلباً'
+  },
+  {
+    id: 'h-10',
+    name: 'حواوشي سجق ساده',
+    category: 'hawaoshi',
+    description: 'سجق بلدي شرقي بخلطة التوابل الحارة',
+    price: 80,
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-11',
+    name: 'حواوشي سجق دبل',
+    category: 'hawaoshi',
+    description: 'دبل سجق بلدي مشوي ومتبل بإتقان',
+    price: 100,
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-12',
+    name: 'حواوشي سجق شيدر',
+    category: 'hawaoshi',
+    description: 'سجق بلدي مع جبنة شيدر مذابة',
+    price: 95,
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-13',
+    name: 'حواوشي سجق موتزاريلا',
+    category: 'hawaoshi',
+    description: 'سجق شرقي مع جبنة موتزاريلا',
+    price: 95,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-14',
+    name: 'حواوشي سجق ماشروم',
+    category: 'hawaoshi',
+    description: 'سجق بلدي مع قطع الماشروم الطازج',
+    price: 95,
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'h-15',
+    name: 'حواوشي سجق بيج تيستي',
+    category: 'hawaoshi',
+    description: 'سجق مع صوص بيج تيستي المميز',
+    price: 90,
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop'
+  },
+
+  // برجر فراخ
+  {
+    id: 'cb-1',
+    name: 'تشيكن كلاسيك',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي مقرمش مع خس، طماطم، وصوص الكشك الخاص',
+    prices: [
+      { sizeOrType: 'سينجل', price: 80 },
+      { sizeOrType: 'دبل', price: 120 }
+    ],
+    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'cb-2',
+    name: 'تشيكن رانش',
+    category: 'chicken-burger',
+    description: 'صدر دجاج مقرمش مع صوص الرانش الغني وجبنة الشيدر',
+    prices: [
+      { sizeOrType: 'سينجل', price: 85 },
+      { sizeOrType: 'دبل', price: 120 }
+    ],
+    image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cb-3',
+    name: 'تشيكن هالوبينو',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي مع فلفل هالوبينو حار وصوص صب آيلاند',
+    prices: [
+      { sizeOrType: 'سينجل', price: 90 },
+      { sizeOrType: 'دبل', price: 130 }
+    ],
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cb-4',
+    name: 'تشيكن سموك',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي مع صوص باربكيو مدخن وشرائح بيبي بيف مدخن',
+    prices: [
+      { sizeOrType: 'سينجل', price: 115 },
+      { sizeOrType: 'دبل', price: 145 }
+    ],
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop',
+    badge: 'مميز'
+  },
+  {
+    id: 'cb-5',
+    name: 'تشيكن ماشروم',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي مع صوص الماشروم الكريمي الفاخر',
+    prices: [
+      { sizeOrType: 'سينجل', price: 115 },
+      { sizeOrType: 'دبل', price: 155 }
+    ],
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cb-6',
+    name: 'بيج ستيكس',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي ضخم مع موتزاريلا استيكس وصوصات خاصة',
+    prices: [
+      { sizeOrType: 'سينجل', price: 130 },
+      { sizeOrType: 'دبل', price: 170 }
+    ],
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cb-7',
+    name: 'تشيكن زينجر',
+    category: 'chicken-burger',
+    description: 'تتبيلة زينجر الحارة المقرمشة مع خس وصوص حار',
+    prices: [
+      { sizeOrType: 'سينجل', price: 90 },
+      { sizeOrType: 'دبل', price: 140 }
+    ],
+    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cb-8',
+    name: 'تشيكن سبيشيال',
+    category: 'chicken-burger',
+    description: 'وصفة الكشك الخاصة للدجاج المقرمش مع الجبن المضاعف',
+    prices: [
+      { sizeOrType: 'سينجل', price: 100 },
+      { sizeOrType: 'دبل', price: 150 }
+    ],
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+
+  // تشيكن سماش / سماش برجر
+  {
+    id: 'sb-1',
+    name: 'سماش',
+    category: 'smash-burger',
+    description: 'لحم بقرى سماش طازج مع جبنة شيدر مذابة وصوص خاص',
+    prices: [
+      { sizeOrType: 'سينجل', price: 90 },
+      { sizeOrType: 'دبل', price: 130 },
+      { sizeOrType: 'تربييل', price: 170 }
+    ],
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'sb-2',
+    name: 'سماش تيستي',
+    category: 'smash-burger',
+    description: 'لحم سماش مع صوص بيج تيستي وجبنة شيدر غنية',
+    prices: [
+      { sizeOrType: 'سينجل', price: 110 },
+      { sizeOrType: 'دبل', price: 140 },
+      { sizeOrType: 'تربييل', price: 175 }
+    ],
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'sb-3',
+    name: 'سماش ماشروم',
+    category: 'smash-burger',
+    description: 'لحم سماش مع قطع الماشروم الطازج وصوص الكريمة والجبن',
+    prices: [
+      { sizeOrType: 'سينجل', price: 110 },
+      { sizeOrType: 'دبل', price: 145 },
+      { sizeOrType: 'تربييل', price: 185 }
+    ],
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'sb-4',
+    name: 'سماش سبيشيال',
+    category: 'smash-burger',
+    description: 'خلطة الكشك الخاصة للحم السماشي مع الإضافات الفاخرة',
+    prices: [
+      { sizeOrType: 'سينجل', price: 115 },
+      { sizeOrType: 'دبل', price: 160 },
+      { sizeOrType: 'تربييل', price: 195 }
+    ],
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop',
+    badge: 'الأكثر طلباً'
+  },
+  {
+    id: 'sb-5',
+    name: 'سماش هالوبينو',
+    category: 'smash-burger',
+    description: 'لحم سماش مع شرائح الهالوبينو الحارة وصوص الجبن الحار',
+    prices: [
+      { sizeOrType: 'سينجل', price: 100 },
+      { sizeOrType: 'دبل', price: 140 },
+      { sizeOrType: 'تربييل', price: 180 }
+    ],
+    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'sb-6',
+    name: 'تشيز برجر',
+    category: 'smash-burger',
+    description: 'كلاسيك تشيز برجر بجبنة شيدر مزدوجة ولحم طازج',
+    prices: [
+      { sizeOrType: 'سينجل', price: 105 },
+      { sizeOrType: 'دبل', price: 145 },
+      { sizeOrType: 'تربييل', price: 185 }
+    ],
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'sb-7',
+    name: 'سماش سموك',
+    category: 'smash-burger',
+    description: 'لحم سماش مع صوص الباربكيو المدخن وجبنة الشيدر',
+    prices: [
+      { sizeOrType: 'سينجل', price: 105 },
+      { sizeOrType: 'دبل', price: 145 },
+      { sizeOrType: 'تربييل', price: 185 }
+    ],
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+  },
+
+  // الوجبات
+  {
+    id: 'm-1',
+    name: 'وجبه كريسي',
+    category: 'meals',
+    description: 'قطع دجاج كرسبي مقرمشة تقدم مع البطاطس المحمرة والخبز والثومية',
+    price: 180,
+    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'm-2',
+    name: 'وجبه دجاج ميكسيكي',
+    category: 'meals',
+    description: 'دجاج ميكسيكي بخلطة البهارات الخاصة مع صوص التورتيلا والبطاطس',
+    price: 195,
+    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'm-3',
+    name: 'وجبه شيش طاووق',
+    category: 'meals',
+    description: 'أسياب شيش طاووق مشوية على الفحم مع خضار وبطاطس',
+    price: 200,
+    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'm-4',
+    name: 'وجبه كفته',
+    category: 'meals',
+    description: 'أصابع كفته بلدي مشوية بخلطة الكشك السحرية مع أرز أو بطاطس',
+    price: 220,
+    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'm-5',
+    name: 'وجبه ميكس جريل',
+    category: 'meals',
+    description: 'تشكيلة فاخرة من المشاوي (كفته، شيش طاووق، وقطع دجاج)',
+    price: 260,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    badge: 'فاخر'
+  },
+
+  // فرايز
+  {
+    id: 'f-1',
+    name: 'فرينش فرايز',
+    category: 'fries',
+    description: 'بطاطس مقرمشة ذهبية اللون',
+    price: 35,
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'f-2',
+    name: 'تشيز فرايز',
+    category: 'fries',
+    description: 'بطاطس مقرمشة مغطاة بصوص الجبن السائح الغني',
+    price: 55,
+    image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'f-3',
+    name: 'موسكو فرايز',
+    category: 'fries',
+    description: 'بطاطس مع خلطة صوصات خاصة وإضافات مميزة',
+    price: 100,
+    image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'f-4',
+    name: 'طوكيو فرايز',
+    category: 'fries',
+    description: 'بطاطس بطابع آسيوي مع صوصات سبايسي ومايونيز ياباني',
+    price: 110,
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'f-5',
+    name: 'سموك فرايز',
+    category: 'fries',
+    description: 'بطاطس مع قطع بيبي بيف مدخن وصوص باربكيو وجبن',
+    price: 100,
+    image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'f-6',
+    name: 'فرايز سبيشيال',
+    category: 'fries',
+    description: 'بطاطس الكشك الخاصة المليئة بالصوصات واللحم المفروم',
+    price: 130,
+    image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop',
+    badge: 'مميز'
+  },
+  {
+    id: 'f-7',
+    name: 'سلامي فرايز',
+    category: 'fries',
+    description: 'بطاطس مقرمشة مع شرائح السلامي المحمصة وجبن الشيدر',
+    price: 100,
+    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+  },
+
+  // بوكس كريسبى
+  {
+    id: 'cbx-1',
+    name: 'بوكس 2 قطعه',
+    category: 'crispy-box',
+    description: '2 قطعه كرسبي + 250 جرام بطاطس + صوص جبنه + 1 قطعه كيزر',
+    price: 180,
+    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop',
+    popular: true
+  },
+  {
+    id: 'cbx-2',
+    name: 'بوكس 4 قطعه',
+    category: 'crispy-box',
+    description: '4 قطعه كرسبي + 400 جرام بطاطس + 2 صوص جبنه + 2 قطعه كيزر',
+    price: 320,
+    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'cbx-3',
+    name: 'بوكس 8 قطعه فاميلي',
+    category: 'crispy-box',
+    description: '8 قطعه كرسبي + 750 جرام بطاطس + 4 صوص مشكل + 4 قطعه كيزر',
+    price: 550,
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    badge: 'عائلي كبير'
+  },
+
+  // إضافات
+  {
+    id: 'ex-1',
+    name: 'إضافات صوص (صوص جبنه - رانش - كوكتيل - تيكساس)',
+    category: 'extras',
+    description: 'اختيارك من ألذ الصوصات الخاصة',
+    price: 20,
+    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'ex-2',
+    name: 'إضافات كايزر (القطعه)',
+    category: 'extras',
+    description: 'قطعة خبز كيزر طازجة وطرية',
+    price: 10,
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop'
+  },
+  {
+    id: 'ex-3',
+    name: 'إضافات هالوبينو (القطعه)',
+    category: 'extras',
+    description: 'شرائح فلفل هالوبينو حار منعش',
+    price: 20,
+    image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=600&auto=format&fit=crop'
+  }
+];
+
+export const RESTAURANT_INFO = {
+  name: 'مطعم الكشك',
+  englishName: 'EL KUSHK',
+  tagline: 'طعم بيكمل مزاجك',
+  established: 'EST. 2018',
+  phone: '010XXXXXXXX',
+  instagram: '@elkushk.eg',
+  facebook: 'elkushk.eg',
+  deliveryTime: 'خدمة توصيل سريعة'
+};
