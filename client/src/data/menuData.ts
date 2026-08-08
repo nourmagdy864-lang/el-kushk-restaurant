@@ -20,15 +20,17 @@ export const CATEGORIES = [
   { id: 'extras', name: 'إضافات', icon: '🧀' },
 ];
 
+const MENU_IMG = '/manus-storage/IMG-20260808-WA0003_76c539fe.jpg';
+
 export const MENU_ITEMS: MenuItem[] = [
-  // حواوشي (خبز بلدي مقرمش محشو باللحم المفروم والسجق والبسطرمة)
+  // حواوشي
   {
     id: 'h-1',
     name: 'حواوشي لحمة ساده',
     category: 'hawaoshi',
     description: 'لحمة مفرومة طازجة بتوابل الكشك الأصلية في عيش بلدي مقرمش',
     price: 75,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -37,7 +39,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة في عيش بلدي',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-3',
@@ -45,7 +47,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة مفرومة مع طبقة غنية من جبنة الشيدر السائحة',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-4',
@@ -53,7 +55,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة طازجة مغطاة بجبنة الموتزاريلا المطاطية السائحة',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -62,7 +64,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'مع صوص بيج تيستي المميز الخاص بالمطعم واللحم الطازج',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-6',
@@ -70,7 +72,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'بسطرمة أصلية مع جبنة شيدر غنية ومحمرة',
     price: 125,
-    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-7',
@@ -78,7 +80,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'مزيج فاخر من اللحمة والجبنة الرومي والموتزاريلا',
     price: 120,
-    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-8',
@@ -86,7 +88,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سلامي مدخن مع جبنة موتزاريلا سايحة',
     price: 125,
-    image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-9',
@@ -94,7 +96,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'تشكيلة مميزة من ألذ اللحوم المدخنة والمفرومة والجبن',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'الأكثر طلباً'
   },
   {
@@ -103,7 +105,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي شرقي بخلطة التوابل الحارة في عيش بلدي',
     price: 80,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-11',
@@ -111,7 +113,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل سجق بلدي مشوي ومتبل بإتقان',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-12',
@@ -119,7 +121,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع جبنة شيدر مذابة',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-13',
@@ -127,7 +129,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق شرقي مع جبنة موتزاريلا مطاطية',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-14',
@@ -135,7 +137,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع قطع الماشروم الطازج',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'h-15',
@@ -143,10 +145,10 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق مع صوص بيج تيستي المميز',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
 
-  // برجر فراخ (دجاج كرسبي مقرمش في خبز كيزر)
+  // برجر فراخ
   {
     id: 'cb-1',
     name: 'تشيكن كلاسيك',
@@ -156,7 +158,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 80 },
       { sizeOrType: 'دبل', price: 120 }
     ],
-    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -168,7 +170,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 85 },
       { sizeOrType: 'دبل', price: 120 }
     ],
-    image: 'https://images.unsplash.com/photo-1606755962773-d324e0a13086?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cb-3',
@@ -179,7 +181,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 90 },
       { sizeOrType: 'دبل', price: 130 }
     ],
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cb-4',
@@ -190,7 +192,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 115 },
       { sizeOrType: 'دبل', price: 145 }
     ],
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'مميز'
   },
   {
@@ -202,7 +204,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 115 },
       { sizeOrType: 'دبل', price: 155 }
     ],
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cb-6',
@@ -213,7 +215,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 130 },
       { sizeOrType: 'دبل', price: 170 }
     ],
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cb-7',
@@ -224,7 +226,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 90 },
       { sizeOrType: 'دبل', price: 140 }
     ],
-    image: 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cb-8',
@@ -235,11 +237,11 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 100 },
       { sizeOrType: 'دبل', price: 150 }
     ],
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
 
-  // تشيكن سماش / سماش برجر (لحم سماش طازج مع طبقات الجبن)
+  // تشيكن سماش
   {
     id: 'sb-1',
     name: 'سماش',
@@ -250,7 +252,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 130 },
       { sizeOrType: 'تربييل', price: 170 }
     ],
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -263,7 +265,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 140 },
       { sizeOrType: 'تربييل', price: 175 }
     ],
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'sb-3',
@@ -275,7 +277,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'sb-4',
@@ -287,7 +289,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 160 },
       { sizeOrType: 'تربييل', price: 195 }
     ],
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'الأكثر طلباً'
   },
   {
@@ -300,7 +302,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 140 },
       { sizeOrType: 'تربييل', price: 180 }
     ],
-    image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'sb-6',
@@ -312,7 +314,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'sb-7',
@@ -324,17 +326,17 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
 
-  // الوجبات (وجبات دجاج كرسبي، شيش، كفته، ميكس جريل)
+  // الوجبات
   {
     id: 'm-1',
     name: 'وجبه كريسي',
     category: 'meals',
     description: 'قطع دجاج كرسبي مقرمشة تقدم مع البطاطس المحمرة والخبز والثومية',
     price: 180,
-    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -343,7 +345,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'دجاج ميكسيكي بخلطة البهارات الخاصة مع صوص التورتيلا والبطاطس',
     price: 195,
-    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'm-3',
@@ -351,7 +353,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'أسياب شيش طاووق مشوية على الفحم مع خضار وبطاطس',
     price: 200,
-    image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'm-4',
@@ -359,7 +361,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'أصابع كفته بلدي مشوية بخلطة الكشك السحرية مع أرز أو بطاطس',
     price: 220,
-    image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'm-5',
@@ -367,18 +369,18 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'تشكيلة فاخرة من المشاوي (كفته، شيش طاووق، وقطع دجاج)',
     price: 260,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'فاخر'
   },
 
-  // فرايز (بطاطس مقرمشة بشتى الأنواع)
+  // فرايز
   {
     id: 'f-1',
     name: 'فرينش فرايز',
     category: 'fries',
     description: 'بطاطس مقرمشة ذهبية اللون',
     price: 35,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'f-2',
@@ -386,7 +388,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مقرمشة مغطاة بصوص الجبن السائح الغني',
     price: 55,
-    image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -395,7 +397,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مع خلطة صوصات خاصة وإضافات مميزة',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'f-4',
@@ -403,7 +405,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس بطابع آسيوي مع صوصات سبايسي ومايونيز ياباني',
     price: 110,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'f-5',
@@ -411,7 +413,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مع قطع بيبي بيف مدخن وصوص باربكيو وجبن',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'f-6',
@@ -419,7 +421,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس الكشك الخاصة المليئة بالصوصات واللحم المفروم',
     price: 130,
-    image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'مميز'
   },
   {
@@ -428,17 +430,17 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مقرمشة مع شرائح السلامي المحمصة وجبن الشيدر',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
 
-  // بوكس كريسبى (بوكسات الدجاج المقرمش مع البطاطس والصوصات)
+  // بوكس كريسبى
   {
     id: 'cbx-1',
     name: 'بوكس 2 قطعه',
     category: 'crispy-box',
     description: '2 قطعه كرسبي + 250 جرام بطاطس + صوص جبنه + 1 قطعه كيزر',
     price: 180,
-    image: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     popular: true
   },
   {
@@ -447,7 +449,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'crispy-box',
     description: '4 قطعه كرسبي + 400 جرام بطاطس + 2 صوص جبنه + 2 قطعه كيزر',
     price: 320,
-    image: 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'cbx-3',
@@ -455,7 +457,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'crispy-box',
     description: '8 قطعه كرسبي + 750 جرام بطاطس + 4 صوص مشكل + 4 قطعه كيزر',
     price: 550,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
+    image: MENU_IMG,
     badge: 'عائلي كبير'
   },
 
@@ -466,7 +468,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'اختيارك من ألذ الصوصات الخاصة',
     price: 20,
-    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'ex-2',
@@ -474,7 +476,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'قطعة خبز كيزر طازجة وطرية',
     price: 10,
-    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   },
   {
     id: 'ex-3',
@@ -482,7 +484,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'شرائح فلفل هالوبينو حار منعش',
     price: 20,
-    image: 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=600&auto=format&fit=crop'
+    image: MENU_IMG
   }
 ];
 
