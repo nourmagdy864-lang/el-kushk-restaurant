@@ -14,7 +14,9 @@ import {
   CheckCircle2, 
   Flame,
   ArrowRight,
-  MessageCircle
+  MessageCircle,
+  User,
+  MapPinned
 } from 'lucide-react';
 import { CATEGORIES, MENU_ITEMS, RESTAURANT_INFO, MenuItem } from '../data/menuData';
 import { toast } from 'sonner';
@@ -34,7 +36,14 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [orderCompleted, setOrderCompleted] = useState(false);
+
+  // Customer Form State
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [customerNotes, setCustomerNotes] = useState('');
 
   const filteredItems = MENU_ITEMS.filter(item => {
     const matchesCategory = !activeCategory || item.category === activeCategory;
@@ -82,14 +91,28 @@ export default function Home() {
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const handleWhatsAppCheckout = () => {
+  const handleWhatsAppCheckout = (e: React.FormEvent) => {
+    e.preventDefault();
     if (cart.length === 0) {
       toast.error('السلة فارغة!');
       return;
     }
 
-    const orderText = cart.map(i => `- ${i.name} × ${i.quantity} = ${i.price * i.quantity} ج.م`).join('\n');
-    const message = `مرحباً مطعم الكشك، أود طلب الأوريجينال الآتي:\n\n${orderText}\n\n*الإجمالي الكلي: ${totalPrice} ج.م*`;
+    if (!customerName.trim() || !customerPhone.trim() || !customerAddress.trim()) {
+      toast.error('يرجى إدخال الاسم، رقم الهاتف، والعنوان بالتفصيل');
+      return;
+    }
+
+    const orderText = cart.map(i => `• ${i.name} × ${i.quantity} = ${i.price * i.quantity} ج.م`).join('\n');
+    
+    const message = `🔔 *طلب جديد من موقع مطعم الكشك* 🔔\n\n` +
+      `👤 *اسم العميل:* ${customerName}\n` +
+      `📞 *رقم الهاتـف:* ${customerPhone}\n` +
+      `📍 *العنوان:* ${customerAddress}\n` +
+      `${customerNotes ? `📝 *ملاحظات:* ${customerNotes}\n` : ''}\n` +
+      `🛒 *تفاصيل الأوردر:*\n${orderText}\n\n` +
+      `💰 *الإجمالي الكلي:* *${totalPrice} ج.م*`;
+
     const whatsappUrl = `https://wa.me/${RESTAURANT_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
     
     setOrderCompleted(true);
@@ -98,7 +121,12 @@ export default function Home() {
       window.open(whatsappUrl, '_blank');
       setCart([]);
       setOrderCompleted(false);
+      setShowCheckoutForm(false);
       setIsCartOpen(false);
+      setCustomerName('');
+      setCustomerPhone('');
+      setCustomerAddress('');
+      setCustomerNotes('');
     }, 1500);
   };
 
@@ -155,8 +183,8 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section with Video Background */}
-      <section className="relative py-20 md:py-28 overflow-hidden border-b border-[#D4AF37]/20 flex items-center justify-center">
+      {/* Hero Section with Prominent Video Background */}
+      <section className="relative py-24 md:py-36 overflow-hidden border-b border-[#D4AF37]/20 flex items-center justify-center">
         {/* Background Video */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <video
@@ -164,13 +192,13 @@ export default function Home() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover filter brightness-50 scale-105"
+            className="w-full h-full object-cover filter brightness-[0.65] contrast-110 scale-105"
           >
             <source src="/manus-storage/Sandoo_Artesanal_1ac01de6.mp4" type="video/mp4" />
             متصفحك لا يدعم تشغيل الفيديو
           </video>
-          {/* Dark Overlay Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/70 to-[#070707]/65"></div>
+          {/* Subtle Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/60 to-[#070707]/50"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
@@ -178,10 +206,10 @@ export default function Home() {
             <Flame className="w-4 h-4" />
             <span>جودة المكونات سر الطعم الأصلي</span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight drop-shadow-lg">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight drop-shadow-xl text-white">
             استمتع بألذ أطباق <span className="gold-gradient-text">الكشك</span>
           </h2>
-          <p className="text-gray-200 text-lg md:text-xl mb-8 max-w-2xl mx-auto font-medium drop-shadow">
+          <p className="text-gray-200 text-lg md:text-xl mb-8 max-w-2xl mx-auto font-medium drop-shadow-md">
             اختر القسم الذي تحبه واستعرض أشهى الأطباق المجهزة خصيصاً لتناسب مزاجك.
           </p>
 
@@ -244,10 +272,10 @@ export default function Home() {
                           alt={cat.name} 
                           style={{
                             objectPosition: repItem.imageStyle?.objectPosition || 'center',
-                            transform: 'scale(2.2)',
+                            transform: 'scale(2.5)',
                             transformOrigin: repItem.imageStyle?.objectPosition || 'center'
                           }}
-                          className="w-full h-full object-cover group-hover:scale-[2.4] transition-transform duration-700"
+                          className="w-full h-full object-cover group-hover:scale-[2.7] transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/60 to-transparent"></div>
                       </div>
@@ -307,14 +335,14 @@ export default function Home() {
                 <h2 className="text-xl font-bold text-gray-100">سلة الطلبات</h2>
               </div>
               <button 
-                onClick={() => setIsCartOpen(false)}
+                onClick={() => { setIsCartOpen(false); setShowCheckoutForm(false); }}
                 className="w-9 h-9 rounded-full bg-[#202020] text-gray-400 hover:text-white flex items-center justify-center font-bold"
               >
                 ✕
               </button>
             </div>
 
-            {/* Cart Items List */}
+            {/* Cart Body */}
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {cart.length === 0 ? (
                 <div className="text-center py-20">
@@ -322,52 +350,132 @@ export default function Home() {
                   <p className="text-gray-400 font-semibold">سلة الطلبات فارغة حالياً</p>
                   <p className="text-gray-600 text-sm mt-1">اختر وجباتك المفضلة من الأقسام لإضافتها.</p>
                 </div>
+              ) : !showCheckoutForm ? (
+                <>
+                  <div className="space-y-3">
+                    {cart.map(item => (
+                      <div key={item.id} className="flex items-center gap-4 p-4 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/15">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden relative flex-shrink-0 bg-black">
+                          <img 
+                            src={item.image} 
+                            alt={item.name} 
+                            style={{
+                              objectPosition: item.imageStyle?.objectPosition || 'center',
+                              transform: 'scale(2.5)',
+                              transformOrigin: item.imageStyle?.objectPosition || 'center'
+                            }}
+                            className="w-full h-full object-cover" 
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-sm text-gray-200">{item.name}</h4>
+                          <span className="text-[#D4AF37] font-black text-sm">{item.price * item.quantity} ج.م</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-[#121212] px-2 py-1 rounded-lg border border-[#D4AF37]/25">
+                          <button 
+                            onClick={() => updateQuantity(item.id, -1)}
+                            className="text-gray-400 hover:text-white p-1"
+                          >
+                            <Minus className="w-3.5 h-3.5" />
+                          </button>
+                          <span className="text-sm font-bold px-1 text-[#D4AF37]">{item.quantity}</span>
+                          <button 
+                            onClick={() => updateQuantity(item.id, 1)}
+                            className="text-gray-400 hover:text-white p-1"
+                          >
+                            <Plus className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                        <button 
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-red-500 hover:text-red-400 p-1"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </>
               ) : (
-                cart.map(item => (
-                  <div key={item.id} className="flex items-center gap-4 p-4 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/15">
-                    <div className="w-16 h-16 rounded-lg overflow-hidden relative flex-shrink-0 bg-black">
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
-                        style={{
-                          objectPosition: item.imageStyle?.objectPosition || 'center',
-                          transform: 'scale(2.5)',
-                          transformOrigin: item.imageStyle?.objectPosition || 'center'
-                        }}
-                        className="w-full h-full object-cover" 
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-bold text-sm text-gray-200">{item.name}</h4>
-                      <span className="text-[#D4AF37] font-black text-sm">{item.price * item.quantity} ج.م</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-[#121212] px-2 py-1 rounded-lg border border-[#D4AF37]/25">
-                      <button 
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="text-gray-400 hover:text-white p-1"
-                      >
-                        <Minus className="w-3.5 h-3.5" />
-                      </button>
-                      <span className="text-sm font-bold px-1 text-[#D4AF37]">{item.quantity}</span>
-                      <button 
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="text-gray-400 hover:text-white p-1"
-                      >
-                        <Plus className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
+                /* Customer Checkout Form */
+                <form id="checkout-form" onSubmit={handleWhatsAppCheckout} className="space-y-4 animate-fadeIn">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#D4AF37]/20">
+                    <h3 className="text-lg font-bold text-[#D4AF37]">بيانات التوصيل</h3>
                     <button 
-                      onClick={() => removeFromCart(item.id)}
-                      className="text-red-500 hover:text-red-400 p-1"
+                      type="button" 
+                      onClick={() => setShowCheckoutForm(false)}
+                      className="text-xs text-gray-400 hover:text-white underline"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      العودة للسلة
                     </button>
                   </div>
-                ))
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">الاسم الكامل *</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500">
+                        <User className="w-4 h-4" />
+                      </div>
+                      <input 
+                        type="text"
+                        required
+                        value={customerName}
+                        onChange={e => setCustomerName(e.target.value)}
+                        placeholder="أدخل اسمك الكريم"
+                        className="w-full pr-10 pl-3 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/30 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">رقم الهاتف (للتواصل) *</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-500">
+                        <Phone className="w-4 h-4" />
+                      </div>
+                      <input 
+                        type="tel"
+                        required
+                        value={customerPhone}
+                        onChange={e => setCustomerPhone(e.target.value)}
+                        placeholder="010xxxxxxxx"
+                        className="w-full pr-10 pl-3 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/30 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37]"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">عنوان التوصيل بالتفصيل *</label>
+                    <div className="relative">
+                      <div className="absolute top-3 right-3 pointer-events-none text-gray-500">
+                        <MapPinned className="w-4 h-4" />
+                      </div>
+                      <textarea 
+                        required
+                        rows={3}
+                        value={customerAddress}
+                        onChange={e => setCustomerAddress(e.target.value)}
+                        placeholder="المنطقة، الشارع، رقم العلبة/العمارة، الدور..."
+                        className="w-full pr-10 pl-3 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/30 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37] resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-gray-300 mb-1">ملاحظات إضافية (اختياري)</label>
+                    <input 
+                      type="text"
+                      value={customerNotes}
+                      onChange={e => setCustomerNotes(e.target.value)}
+                      placeholder="بدون بصل، زيادة صوص..."
+                      className="w-full px-3 py-2.5 rounded-xl bg-[#1a1a1a] border border-[#D4AF37]/30 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+                </form>
               )}
             </div>
 
-            {/* Cart Footer / WhatsApp Checkout */}
+            {/* Cart Footer */}
             {cart.length > 0 && (
               <div className="p-6 border-t border-[#D4AF37]/20 bg-[#161616] space-y-4">
                 <div className="flex items-center justify-between text-lg font-bold">
@@ -380,13 +488,22 @@ export default function Home() {
                     <CheckCircle2 className="w-5 h-5" />
                     <span>جاري التوجيه إلى واتساب المطعم...</span>
                   </div>
+                ) : !showCheckoutForm ? (
+                  <button
+                    onClick={() => setShowCheckoutForm(true)}
+                    className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#AA7C11] text-black font-extrabold text-base shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+                  >
+                    <span>إكمال الطلب وإدخال البيانات</span>
+                    <ArrowRight className="w-5 h-5 rotate-180" />
+                  </button>
                 ) : (
                   <button
-                    onClick={handleWhatsAppCheckout}
+                    type="submit"
+                    form="checkout-form"
                     className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-extrabold text-base shadow-[0_0_20px_rgba(16,185,129,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
                     <MessageCircle className="w-5 h-5 fill-current" />
-                    <span>اطلب عبر الواتساب ({RESTAURANT_INFO.phone})</span>
+                    <span>تأكيد وإرسال الطلب عبر الواتساب</span>
                   </button>
                 )}
               </div>
