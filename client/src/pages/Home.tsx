@@ -153,18 +153,33 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative py-12 md:py-16 overflow-hidden bg-gradient-to-b from-[#121212] via-[#0b0b0b] to-[#070707] border-b border-[#D4AF37]/15">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]"></div>
+      {/* Hero Section with Video Background */}
+      <section className="relative py-20 md:py-28 overflow-hidden border-b border-[#D4AF37]/20 flex items-center justify-center">
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover filter brightness-50 scale-105"
+          >
+            <source src="/manus-storage/Sandoo_Artesanal_1ac01de6.mp4" type="video/mp4" />
+            متصفحك لا يدعم تشغيل الفيديو
+          </video>
+          {/* Dark Overlay Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#070707] via-[#070707]/70 to-[#070707]/65"></div>
+        </div>
+
         <div className="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#D4AF37] text-sm font-bold mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-bold mb-4 backdrop-blur-md shadow-lg">
             <Flame className="w-4 h-4" />
             <span>جودة المكونات سر الطعم الأصلي</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight drop-shadow-lg">
             استمتع بألذ أطباق <span className="gold-gradient-text">الكشك</span>
           </h2>
-          <p className="text-gray-300 text-base md:text-lg mb-6 max-w-2xl mx-auto font-medium">
+          <p className="text-gray-200 text-lg md:text-xl mb-8 max-w-2xl mx-auto font-medium drop-shadow">
             اختر القسم الذي تحبه واستعرض أشهى الأطباق المجهزة خصيصاً لتناسب مزاجك.
           </p>
 
@@ -178,14 +193,14 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="ابحث عن أي طبق في المنيو..."
-              className="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-[#141414] border border-[#D4AF37]/40 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25 text-base font-medium transition-all"
+              className="w-full pr-12 pl-4 py-4 rounded-2xl bg-[#141414]/90 backdrop-blur-md border border-[#D4AF37]/50 text-gray-100 placeholder-gray-400 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/30 text-base font-medium transition-all shadow-xl"
             />
           </div>
         </div>
       </section>
 
       {/* Main Content: Categories View or Selected Category Items View */}
-      <section className="py-10 flex-1 container mx-auto px-4">
+      <section className="py-12 flex-1 container mx-auto px-4">
         
         {searchQuery ? (
           <div>
