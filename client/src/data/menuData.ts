@@ -21,14 +21,14 @@ export const CATEGORIES = [
 ];
 
 export const MENU_ITEMS: MenuItem[] = [
-  // حواوشي
+  // حواوشي (خبز بلدي مقرمش محشو باللحم المفروم والسجق والبسطرمة)
   {
     id: 'h-1',
     name: 'حواوشي لحمة ساده',
     category: 'hawaoshi',
     description: 'لحمة مفرومة طازجة بتوابل الكشك الأصلية في عيش بلدي مقرمش',
     price: 75,
-    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop',
     popular: true
   },
   {
@@ -37,7 +37,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة في عيش بلدي',
     price: 90,
-    image: 'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-3',
@@ -111,7 +111,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل سجق بلدي مشوي ومتبل بإتقان',
     price: 100,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-12',
@@ -119,7 +119,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع جبنة شيدر مذابة',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-13',
@@ -127,7 +127,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق شرقي مع جبنة موتزاريلا مطاطية',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-14',
@@ -135,7 +135,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع قطع الماشروم الطازج',
     price: 95,
-    image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
   },
   {
     id: 'h-15',
@@ -146,7 +146,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=600&auto=format&fit=crop'
   },
 
-  // برجر فراخ
+  // برجر فراخ (دجاج كرسبي مقرمش في خبز كيزر)
   {
     id: 'cb-1',
     name: 'تشيكن كلاسيك',
@@ -239,7 +239,7 @@ export const MENU_ITEMS: MenuItem[] = [
     popular: true
   },
 
-  // تشيكن سماش / سماش برجر
+  // تشيكن سماش / سماش برجر (لحم سماش طازج مع طبقات الجبن)
   {
     id: 'sb-1',
     name: 'سماش',
@@ -327,7 +327,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?q=80&w=600&auto=format&fit=crop'
   },
 
-  // الوجبات
+  // الوجبات (وجبات دجاج كرسبي، شيش، كفته، ميكس جريل)
   {
     id: 'm-1',
     name: 'وجبه كريسي',
@@ -371,7 +371,7 @@ export const MENU_ITEMS: MenuItem[] = [
     badge: 'فاخر'
   },
 
-  // فرايز
+  // فرايز (بطاطس مقرمشة بشتى الأنواع)
   {
     id: 'f-1',
     name: 'فرينش فرايز',
@@ -431,7 +431,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
   },
 
-  // بوكس كريسبى
+  // بوكس كريسبى (بوكسات الدجاج المقرمش مع البطاطس والصوصات)
   {
     id: 'cbx-1',
     name: 'بوكس 2 قطعه',
