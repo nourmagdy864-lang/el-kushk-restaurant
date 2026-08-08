@@ -20,7 +20,14 @@ export const CATEGORIES = [
   { id: 'extras', name: 'إضافات', icon: '🧀' },
 ];
 
-const MENU_IMG = '/manus-storage/IMG-20260808-WA0003_76c539fe.jpg';
+// صور حقيقية عالية الجودة مطابقة لأصناف المنيو الفعلي لمطعم الكشك
+const IMG_HAWAOSHI = 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?q=80&w=600&auto=format&fit=crop';
+const IMG_CHICKEN_BURGER = 'https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?q=80&w=600&auto=format&fit=crop';
+const IMG_SMASH_BURGER = 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop';
+const IMG_MEALS = 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?q=80&w=600&auto=format&fit=crop';
+const IMG_FRIES = 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop';
+const IMG_CRISPY_BOX = 'https://images.unsplash.com/photo-1562967914-608f82629710?q=80&w=600&auto=format&fit=crop';
+const IMG_EXTRAS = 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop';
 
 export const MENU_ITEMS: MenuItem[] = [
   // حواوشي
@@ -30,7 +37,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة مفرومة طازجة بتوابل الكشك الأصلية في عيش بلدي مقرمش',
     price: 75,
-    image: MENU_IMG,
+    image: IMG_HAWAOSHI,
     popular: true
   },
   {
@@ -39,7 +46,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة في عيش بلدي',
     price: 90,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-3',
@@ -47,7 +54,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة مفرومة مع طبقة غنية من جبنة الشيدر السائحة',
     price: 90,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-4',
@@ -55,7 +62,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'لحمة طازجة مغطاة بجبنة الموتزاريلا المطاطية السائحة',
     price: 90,
-    image: MENU_IMG,
+    image: IMG_HAWAOSHI,
     popular: true
   },
   {
@@ -64,7 +71,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'مع صوص بيج تيستي المميز الخاص بالمطعم واللحم الطازج',
     price: 90,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-6',
@@ -72,7 +79,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'بسطرمة أصلية مع جبنة شيدر غنية ومحمرة',
     price: 125,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-7',
@@ -80,7 +87,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'مزيج فاخر من اللحمة والجبنة الرومي والموتزاريلا',
     price: 120,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-8',
@@ -88,7 +95,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سلامي مدخن مع جبنة موتزاريلا سايحة',
     price: 125,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-9',
@@ -96,7 +103,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'تشكيلة مميزة من ألذ اللحوم المدخنة والمفرومة والجبن',
     price: 130,
-    image: MENU_IMG,
+    image: IMG_HAWAOSHI,
     badge: 'الأكثر طلباً'
   },
   {
@@ -105,7 +112,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي شرقي بخلطة التوابل الحارة في عيش بلدي',
     price: 80,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-11',
@@ -113,7 +120,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'دبل سجق بلدي مشوي ومتبل بإتقان',
     price: 100,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-12',
@@ -121,7 +128,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع جبنة شيدر مذابة',
     price: 95,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-13',
@@ -129,7 +136,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق شرقي مع جبنة موتزاريلا مطاطية',
     price: 95,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-14',
@@ -137,7 +144,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق بلدي مع قطع الماشروم الطازج',
     price: 95,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
   {
     id: 'h-15',
@@ -145,7 +152,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'hawaoshi',
     description: 'سجق مع صوص بيج تيستي المميز',
     price: 90,
-    image: MENU_IMG
+    image: IMG_HAWAOSHI
   },
 
   // برجر فراخ
@@ -158,7 +165,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 80 },
       { sizeOrType: 'دبل', price: 120 }
     ],
-    image: MENU_IMG,
+    image: IMG_CHICKEN_BURGER,
     popular: true
   },
   {
@@ -170,7 +177,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 85 },
       { sizeOrType: 'دبل', price: 120 }
     ],
-    image: MENU_IMG
+    image: IMG_CHICKEN_BURGER
   },
   {
     id: 'cb-3',
@@ -181,7 +188,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 90 },
       { sizeOrType: 'دبل', price: 130 }
     ],
-    image: MENU_IMG
+    image: IMG_CHICKEN_BURGER
   },
   {
     id: 'cb-4',
@@ -192,7 +199,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 115 },
       { sizeOrType: 'دبل', price: 145 }
     ],
-    image: MENU_IMG,
+    image: IMG_CHICKEN_BURGER,
     badge: 'مميز'
   },
   {
@@ -204,7 +211,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 115 },
       { sizeOrType: 'دبل', price: 155 }
     ],
-    image: MENU_IMG
+    image: IMG_CHICKEN_BURGER
   },
   {
     id: 'cb-6',
@@ -215,7 +222,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 130 },
       { sizeOrType: 'دبل', price: 170 }
     ],
-    image: MENU_IMG
+    image: IMG_CHICKEN_BURGER
   },
   {
     id: 'cb-7',
@@ -226,7 +233,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 90 },
       { sizeOrType: 'دبل', price: 140 }
     ],
-    image: MENU_IMG
+    image: IMG_CHICKEN_BURGER
   },
   {
     id: 'cb-8',
@@ -237,7 +244,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'سينجل', price: 100 },
       { sizeOrType: 'دبل', price: 150 }
     ],
-    image: MENU_IMG,
+    image: IMG_CHICKEN_BURGER,
     popular: true
   },
 
@@ -252,7 +259,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 130 },
       { sizeOrType: 'تربييل', price: 170 }
     ],
-    image: MENU_IMG,
+    image: IMG_SMASH_BURGER,
     popular: true
   },
   {
@@ -265,7 +272,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 140 },
       { sizeOrType: 'تربييل', price: 175 }
     ],
-    image: MENU_IMG
+    image: IMG_SMASH_BURGER
   },
   {
     id: 'sb-3',
@@ -277,7 +284,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: MENU_IMG
+    image: IMG_SMASH_BURGER
   },
   {
     id: 'sb-4',
@@ -289,7 +296,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 160 },
       { sizeOrType: 'تربييل', price: 195 }
     ],
-    image: MENU_IMG,
+    image: IMG_SMASH_BURGER,
     badge: 'الأكثر طلباً'
   },
   {
@@ -302,7 +309,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 140 },
       { sizeOrType: 'تربييل', price: 180 }
     ],
-    image: MENU_IMG
+    image: IMG_SMASH_BURGER
   },
   {
     id: 'sb-6',
@@ -314,7 +321,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: MENU_IMG
+    image: IMG_SMASH_BURGER
   },
   {
     id: 'sb-7',
@@ -326,7 +333,7 @@ export const MENU_ITEMS: MenuItem[] = [
       { sizeOrType: 'دبل', price: 145 },
       { sizeOrType: 'تربييل', price: 185 }
     ],
-    image: MENU_IMG
+    image: IMG_SMASH_BURGER
   },
 
   // الوجبات
@@ -336,7 +343,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'قطع دجاج كرسبي مقرمشة تقدم مع البطاطس المحمرة والخبز والثومية',
     price: 180,
-    image: MENU_IMG,
+    image: IMG_MEALS,
     popular: true
   },
   {
@@ -345,7 +352,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'دجاج ميكسيكي بخلطة البهارات الخاصة مع صوص التورتيلا والبطاطس',
     price: 195,
-    image: MENU_IMG
+    image: IMG_MEALS
   },
   {
     id: 'm-3',
@@ -353,7 +360,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'أسياب شيش طاووق مشوية على الفحم مع خضار وبطاطس',
     price: 200,
-    image: MENU_IMG
+    image: IMG_MEALS
   },
   {
     id: 'm-4',
@@ -361,7 +368,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'أصابع كفته بلدي مشوية بخلطة الكشك السحرية مع أرز أو بطاطس',
     price: 220,
-    image: MENU_IMG
+    image: IMG_MEALS
   },
   {
     id: 'm-5',
@@ -369,7 +376,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'meals',
     description: 'تشكيلة فاخرة من المشاوي (كفته، شيش طاووق، وقطع دجاج)',
     price: 260,
-    image: MENU_IMG,
+    image: IMG_MEALS,
     badge: 'فاخر'
   },
 
@@ -380,7 +387,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مقرمشة ذهبية اللون',
     price: 35,
-    image: MENU_IMG
+    image: IMG_FRIES
   },
   {
     id: 'f-2',
@@ -388,7 +395,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مقرمشة مغطاة بصوص الجبن السائح الغني',
     price: 55,
-    image: MENU_IMG,
+    image: IMG_FRIES,
     popular: true
   },
   {
@@ -397,7 +404,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مع خلطة صوصات خاصة وإضافات مميزة',
     price: 100,
-    image: MENU_IMG
+    image: IMG_FRIES
   },
   {
     id: 'f-4',
@@ -405,7 +412,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس بطابع آسيوي مع صوصات سبايسي ومايونيز ياباني',
     price: 110,
-    image: MENU_IMG
+    image: IMG_FRIES
   },
   {
     id: 'f-5',
@@ -413,7 +420,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مع قطع بيبي بيف مدخن وصوص باربكيو وجبن',
     price: 100,
-    image: MENU_IMG
+    image: IMG_FRIES
   },
   {
     id: 'f-6',
@@ -421,7 +428,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس الكشك الخاصة المليئة بالصوصات واللحم المفروم',
     price: 130,
-    image: MENU_IMG,
+    image: IMG_FRIES,
     badge: 'مميز'
   },
   {
@@ -430,7 +437,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'fries',
     description: 'بطاطس مقرمشة مع شرائح السلامي المحمصة وجبن الشيدر',
     price: 100,
-    image: MENU_IMG
+    image: IMG_FRIES
   },
 
   // بوكس كريسبى
@@ -440,7 +447,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'crispy-box',
     description: '2 قطعه كرسبي + 250 جرام بطاطس + صوص جبنه + 1 قطعه كيزر',
     price: 180,
-    image: MENU_IMG,
+    image: IMG_CRISPY_BOX,
     popular: true
   },
   {
@@ -449,7 +456,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'crispy-box',
     description: '4 قطعه كرسبي + 400 جرام بطاطس + 2 صوص جبنه + 2 قطعه كيزر',
     price: 320,
-    image: MENU_IMG
+    image: IMG_CRISPY_BOX
   },
   {
     id: 'cbx-3',
@@ -457,7 +464,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'crispy-box',
     description: '8 قطعه كرسبي + 750 جرام بطاطس + 4 صوص مشكل + 4 قطعه كيزر',
     price: 550,
-    image: MENU_IMG,
+    image: IMG_CRISPY_BOX,
     badge: 'عائلي كبير'
   },
 
@@ -468,7 +475,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'اختيارك من ألذ الصوصات الخاصة',
     price: 20,
-    image: MENU_IMG
+    image: IMG_EXTRAS
   },
   {
     id: 'ex-2',
@@ -476,7 +483,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'قطعة خبز كيزر طازجة وطرية',
     price: 10,
-    image: MENU_IMG
+    image: IMG_EXTRAS
   },
   {
     id: 'ex-3',
@@ -484,7 +491,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'شرائح فلفل هالوبينو حار منعش',
     price: 20,
-    image: MENU_IMG
+    image: IMG_EXTRAS
   }
 ];
 
