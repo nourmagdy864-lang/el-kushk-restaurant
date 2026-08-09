@@ -12,16 +12,16 @@ export interface MenuItem {
 }
 
 export const CATEGORIES = [
-  { id: 'hawaoshi', name: 'حواوشي', icon: '🫓' },
+  { id: 'hawaoshi', name: ', حواوشي مصراوي', icon: '🫓' },
   { id: 'chicken-burger', name: 'برجر فراخ', icon: '🍔' },
-  { id: 'smash-burger', name: 'تشيكن سماش', icon: '🔥' },
+  { id: 'smash-burger', name: '  سماش بيف', icon: '🔥' },
   { id: 'meals', name: 'الوجبات', icon: '🍱' },
   { id: 'fries', name: 'فرايز', icon: '🍟' },
   { id: 'crispy-box', name: 'بوكس كريسبى', icon: '📦' },
-  { id: 'extras', name: 'إضافات', icon: '🧀' },
+  { id: 'extras', name: 'إضافات', icon: '➕' },
 ];
 
-const DISHES_IMG = './manus-storage/file_000000001f2481f4985744df50ab29c5_a79b7384.png';
+const DISHES_IMG,= './manus-storage/file_000000001f2481f4985744df50ab29c5_a79b7384.png';
 
 export const MENU_ITEMS: MenuItem[] = [
   // حواوشي (العنصر الأول: أعلى اليسار)
