@@ -3,8 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>مطعم الكشك | El Kushk</title>
+    <script type="text/javascript">
+      // Single Page Apps for GitHub Pages
+      // https://github.com/rafgraph/spa-github-pages
+      // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
     <script>
-      // GitHub Pages SPA redirect
+      // This script takes the current url and converts it into a query string
+      // so that it can be handled by the SPA script in index.html
       var pathSegmentsToKeep = 1;
       var l = window.location;
       l.replace(
