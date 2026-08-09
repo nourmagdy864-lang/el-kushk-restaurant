@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "framework": "vite",
+  "nodeVersion": "22.x",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
