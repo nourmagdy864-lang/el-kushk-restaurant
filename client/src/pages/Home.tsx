@@ -194,7 +194,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover filter brightness-[0.65] contrast-110 scale-105"
           >
-            <source src="/manus-storage/Sandoo_Artesanal_1ac01de6.mp4" type="video/mp4" />
+            <source src="manus-storage/Sandoo_Artesanal_1ac01de6.mp4" type="video/mp4" />
             متصفحك لا يدعم تشغيل الفيديو
           </video>
           {/* Subtle Gradient Overlay */}
