@@ -21,7 +21,7 @@ export const CATEGORIES = [
   { id: 'extras', name: 'إضافات', icon: '➕' },
 ];
 
-const DISHES_IMG,= './manus-storage/file_000000001f2481f4985744df50ab29c5_a79b7384.png';
+const DISHES_IMG,= ',/manus-storage/file_000000001f2481f4985744df50ab29c5_a79b7384.png';
 
 export const MENU_ITEMS: MenuItem[] = [
   // حواوشي (العنصر الأول: أعلى اليسار)
