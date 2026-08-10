@@ -12,9 +12,9 @@ export interface MenuItem {
 }
 
 export const CATEGORIES = [
-  { id: 'hawaoshi', name: ', حواوشي مصراوي', icon: '🫓' },
+  { id: 'hawaoshi', name: 'حواوشي مصراوي', icon: '🫓' },
   { id: 'chicken-burger', name: 'برجر فراخ', icon: '🍔' },
-  { id: 'smash-burger', name: '  سماش بيف', icon: '🔥' },
+  { id: 'smash-burger', name: 'سماش بيف', icon: '🔥' },
   { id: 'meals', name: 'الوجبات', icon: '🍱' },
   { id: 'fries', name: 'فرايز', icon: '🍟' },
   { id: 'crispy-box', name: 'بوكس كريسبى', icon: '📦' },
@@ -469,7 +469,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'اختيارك من ألذ الصوصات الخاصة',
     price: 20,
-    image: DISHES_IMG
+    image: '/images/piece_box.png'
   },
   {
     id: 'ex-2',
@@ -477,7 +477,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'قطعة خبز كيزر طازجة وطرية',
     price: 10,
-    image: DISHES_IMG
+    image: '/images/piece_box.png'
   },
   {
     id: 'ex-3',
@@ -485,7 +485,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: 'extras',
     description: 'شرائح فلفل هالوبينو حار منعش',
     price: 20,
-    image: DISHES_IMG
+    image: '/images/piece_box.png'
   }
 ];
 
