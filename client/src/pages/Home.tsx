@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { CATEGORIES, MENU_ITEMS, RESTAURANT_INFO, MenuItem } from '../data/menuData';
 import { toast } from 'sonner';
+import { useLocation } from 'wouter';
 
 interface CartItem {
   id: string;
@@ -33,6 +34,7 @@ interface CartItem {
 }
 
 export default function Home() {
+  const [, setLocation] = useLocation();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -165,10 +167,10 @@ export default function Home() {
             </div>
             <div>
               <h1 
-                className="text-xl md:text-2xl font-black tracking-wider gold-gradient-text hover:opacity-80 transition-opacity"
+                className="text-xl md:text-2xl font-black tracking-wider gold-gradient-text hover:opacity-80 transition-opacity cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.location.href = "/admin";
+                  setLocation("/admin");
                 }}
               >
                 {RESTAURANT_INFO.name}
@@ -219,7 +221,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover filter brightness-[0.65] contrast-110 scale-105"
           >
-            <source src="/background.mp4" type="video/mp4" />
+            <source src={`${import.meta.env.BASE_URL}background.mp4`} type="video/mp4" />
             متصفحك لا يدعم تشغيل الفيديو
           </video>
           {/* Subtle Gradient Overlay */}
@@ -293,7 +295,7 @@ export default function Home() {
                     {repItem && (
                       <div className="absolute inset-0 overflow-hidden">
                         <img 
-                          src={repItem.image} 
+                          src={repItem.image.startsWith('/') ? `${import.meta.env.BASE_URL}${repItem.image.slice(1)}` : repItem.image} 
                           alt={cat.name} 
                           style={{
                             objectPosition: repItem.imageStyle?.objectPosition || 'center',
@@ -618,7 +620,7 @@ function renderItemCard(item: MenuItem, addToCart: (item: MenuItem, price: numbe
       <div>
         <div className="relative h-52 overflow-hidden bg-black">
           <img 
-            src={item.image} 
+            src={item.image.startsWith('/') ? `${import.meta.env.BASE_URL}${item.image.slice(1)}` : item.image} 
             alt={item.name}
             style={{
               objectPosition: objPos,

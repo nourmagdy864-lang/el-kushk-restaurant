@@ -233,12 +233,21 @@ export default function Admin() {
                     </div>
                     <div>
                       <label className="text-xs text-gray-500 block mb-1">مسار الصورة</label>
-                      <input
-                        type="text"
-                        value={item.image}
-                        onChange={(e) => updateItem(item.id, { image: e.target.value })}
-                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all text-xs"
-                      />
+                      <div className="flex gap-2">
+                        <div className="w-12 h-12 rounded-lg bg-black overflow-hidden border border-white/10 flex-shrink-0">
+                          <img 
+                            src={item.image.startsWith('/') ? `${import.meta.env.BASE_URL}${item.image.slice(1)}` : item.image} 
+                            className="w-full h-full object-cover"
+                            alt=""
+                          />
+                        </div>
+                        <input
+                          type="text"
+                          value={item.image}
+                          onChange={(e) => updateItem(item.id, { image: e.target.value })}
+                          className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all text-xs"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
