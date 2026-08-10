@@ -2,6 +2,7 @@ import express from "express";
 import { createServer } from "http";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs/promises";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,6 +10,40 @@ const __dirname = path.dirname(__filename);
 async function startServer() {
   const app = express();
   const server = createServer(app);
+
+  app.use(express.json());
+
+  // API for Admin
+  app.post("/api/login", (req, res) => {
+    const { password } = req.body;
+    if (password === "01212") {
+      res.json({ success: true });
+    } else {
+      res.status(401).json({ success: false, message: "كلمة مرور خاطئة" });
+    }
+  });
+
+  app.get("/api/menu", async (req, res) => {
+    try {
+      const data = await fs.readFile(path.join(__dirname, "menu.json"), "utf-8");
+      res.json(JSON.parse(data));
+    } catch (error) {
+      res.status(500).json({ error: "Failed to read menu data" });
+    }
+  });
+
+  app.post("/api/menu", async (req, res) => {
+    try {
+      const { password, data } = req.body;
+      if (password !== "01212") {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+      await fs.writeFile(path.join(__dirname, "menu.json"), JSON.stringify(data, null, 2), "utf-8");
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to save menu data" });
+    }
+  });
 
   // Serve static files from dist/public in production
   const staticPath =

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { 
   ShoppingBag, 
   Phone, 
@@ -38,6 +39,23 @@ export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [orderCompleted, setOrderCompleted] = useState(false);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
+  const [categories, setCategories] = useState(CATEGORIES);
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      try {
+        const response = await axios.get('/api/menu');
+        if (response.data) {
+          setMenuItems(response.data.items);
+          setCategories(response.data.categories);
+        }
+      } catch (error) {
+        console.error('Failed to fetch menu:', error);
+      }
+    };
+    fetchMenu();
+  }, []);
 
   // Customer Form State
   const [customerName, setCustomerName] = useState('');
@@ -45,12 +63,13 @@ export default function Home() {
   const [customerAddress, setCustomerAddress] = useState('');
   const [customerNotes, setCustomerNotes] = useState('');
 
-  const filteredItems = MENU_ITEMS.filter(item => {
+  const filteredItems = menuItems.filter(item => {
+    const isAvailable = item.available !== false;
     const matchesCategory = !activeCategory || item.category === activeCategory;
     const matchesSearch = !searchQuery || 
                           item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesCategory && matchesSearch;
+    return isAvailable && matchesCategory && matchesSearch;
   });
 
   const addToCart = (item: MenuItem, price: number, sizeOrType?: string) => {
@@ -145,7 +164,13 @@ export default function Home() {
               <span className="text-[#D4AF37] font-extrabold text-xl">ك</span>
             </div>
             <div>
-              <h1 className="text-xl md:text-2xl font-black tracking-wider gold-gradient-text">
+              <h1 
+                className="text-xl md:text-2xl font-black tracking-wider gold-gradient-text hover:opacity-80 transition-opacity"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = "/admin";
+                }}
+              >
                 {RESTAURANT_INFO.name}
               </h1>
               <p className="text-xs text-[#D4AF37]/80 tracking-widest uppercase font-semibold">
@@ -255,9 +280,9 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {CATEGORIES.map(cat => {
-                const count = MENU_ITEMS.filter(i => i.category === cat.id).length;
-                const repItem = MENU_ITEMS.find(i => i.category === cat.id);
+              {categories.map(cat => {
+                const count = menuItems.filter(i => i.category === cat.id).length;
+                const repItem = menuItems.find(i => i.category === cat.id);
 
                 return (
                   <div
@@ -541,7 +566,7 @@ export default function Home() {
           <div>
             <h3 className="text-lg font-bold text-[#D4AF37] mb-4">أقسام المنيو</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              {CATEGORIES.map(cat => (
+              {categories.map(cat => (
                 <li key={cat.id}>
                   <button onClick={() => { setActiveCategory(cat.id); setSearchQuery(''); }} className="hover:text-[#D4AF37] transition-colors">
                     {cat.name}
