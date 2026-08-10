@@ -41,19 +41,27 @@ export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showCheckoutForm, setShowCheckoutForm] = useState(false);
   const [orderCompleted, setOrderCompleted] = useState(false);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(MENU_ITEMS);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [categories, setCategories] = useState(CATEGORIES);
 
   useEffect(() => {
     const fetchMenu = async () => {
       try {
         const response = await axios.get('/api/menu');
-        if (response.data) {
+        if (response.data && response.data.items && response.data.items.length > 0) {
           setMenuItems(response.data.items);
           setCategories(response.data.categories);
+        } else {
+          // Fallback to embedded data if API fails or returns empty
+          const fallbackData = await import('../data/menuData');
+          setMenuItems(fallbackData.MENU_ITEMS);
         }
       } catch (error) {
         console.error('Failed to fetch menu:', error);
+        // Fallback to static data
+        import('../data/menuData').then(data => {
+          setMenuItems(data.MENU_ITEMS);
+        });
       }
     };
     fetchMenu();

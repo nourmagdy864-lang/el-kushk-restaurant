@@ -30,11 +30,25 @@ export default function Admin() {
     const fetchMenu = async () => {
       try {
         const response = await axios.get('/api/menu');
-        if (response.data) {
+        if (response.data && response.data.items && response.data.items.length > 0) {
           setMenuData(response.data);
+        } else {
+          // Use fallback data if API returns empty
+          import('../data/menuData').then(data => {
+            setMenuData({
+              categories: data.CATEGORIES,
+              items: data.MENU_ITEMS
+            });
+          });
         }
       } catch (error) {
-        toast.error('فشل تحميل البيانات');
+        toast.error('فشل تحميل البيانات، يتم استخدام البيانات الاحتياطية');
+        import('../data/menuData').then(data => {
+          setMenuData({
+            categories: data.CATEGORIES,
+            items: data.MENU_ITEMS
+          });
+        });
       }
     };
     fetchMenu();

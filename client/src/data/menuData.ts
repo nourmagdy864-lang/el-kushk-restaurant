@@ -28,7 +28,6 @@ export const CATEGORIES: Category[] = [
   { id: 'extras', name: 'إضافات', icon: '➕' },
 ];
 
-// Initial items (fallback)
 export const MENU_ITEMS: MenuItem[] = [
   {
     id: 'h-1',
@@ -38,6 +37,70 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 75,
     image: '/images/hawawshi.png',
     popular: true,
+    available: true
+  },
+  {
+    id: 'h-2',
+    name: 'حواوشي لحمة دبل',
+    category: 'hawaoshi',
+    description: 'دبل لحمة مفرومة طازجة لمتعة مضاعفة في عيش بلدي',
+    price: 90,
+    image: '/images/hawawshi.png',
+    available: true
+  },
+  {
+    id: 'cb-1',
+    name: 'تشيكن كلاسيك',
+    category: 'chicken-burger',
+    description: 'دجاج كرسبي مقرمش مع خس، طماطم، وصوص الكشك الخاص في خبز كيزر طري',
+    prices: [
+      { sizeOrType: 'سينجل', price: 80 },
+      { sizeOrType: 'دبل', price: 120 }
+    ],
+    image: '/images/chicken_burger.png',
+    popular: true,
+    available: true
+  },
+  {
+    id: 'sb-1',
+    name: 'سماش',
+    category: 'smash-burger',
+    description: 'لحم بقرى سماش طازج مع جبنة شيدر مذابة وصوص خاص',
+    prices: [
+      { sizeOrType: 'سينجل', price: 90 },
+      { sizeOrType: 'دبل', price: 130 },
+      { sizeOrType: 'تربييل', price: 170 }
+    ],
+    image: '/images/smash_beef.png',
+    popular: true,
+    available: true
+  },
+  {
+    id: 'm-1',
+    name: 'وجبه كريسي',
+    category: 'meals',
+    description: 'قطع دجاج كرسبي مقرمشة تقدم مع البطاطس المحمرة والخبز والثومية',
+    price: 180,
+    image: '/images/meals.png',
+    popular: true,
+    available: true
+  },
+  {
+    id: 'f-1',
+    name: 'فرينش فرايز',
+    category: 'fries',
+    description: 'بطاطس مقرمشة ذهبية اللون',
+    price: 35,
+    image: '/images/fries.png',
+    available: true
+  },
+  {
+    id: 'cbx-2',
+    name: 'بوكس 4 قطعه',
+    category: 'crispy-box',
+    description: '4 قطعه كرسبي + 400 جرام بطاطس + 2 صوص جبنه + 2 قطعه كيزر',
+    price: 320,
+    image: '/images/piece_box.png',
     available: true
   }
 ];
