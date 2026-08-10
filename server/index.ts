@@ -45,6 +45,33 @@ async function startServer() {
     }
   });
 
+  app.get("/api/settings", async (req, res) => {
+    try {
+      const data = await fs.readFile(path.join(process.cwd(), "server", "menu.json"), "utf-8");
+      const menuData = JSON.parse(data);
+      res.json(menuData.settings || {});
+    } catch (error) {
+      res.status(500).json({ error: "Failed to read settings" });
+    }
+  });
+
+  app.post("/api/settings", async (req, res) => {
+    try {
+      const { password, settings } = req.body;
+      if (password !== "01212") {
+        return res.status(401).json({ error: "Unauthorized" });
+      }
+      const menuPath = path.join(process.cwd(), "server", "menu.json");
+      const data = await fs.readFile(menuPath, "utf-8");
+      const menuData = JSON.parse(data);
+      menuData.settings = { ...menuData.settings, ...settings };
+      await fs.writeFile(menuPath, JSON.stringify(menuData, null, 2), "utf-8");
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to save settings" });
+    }
+  });
+
   // Serve static files from dist/public in production
   const staticPath =
     process.env.NODE_ENV === "production"

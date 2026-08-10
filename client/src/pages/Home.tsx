@@ -43,6 +43,7 @@ export default function Home() {
   const [orderCompleted, setOrderCompleted] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [categories, setCategories] = useState(CATEGORIES);
+  const [backgroundVideo, setBackgroundVideo] = useState('/background.mp4');
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -51,6 +52,9 @@ export default function Home() {
         if (response.data && response.data.items && response.data.items.length > 0) {
           setMenuItems(response.data.items);
           setCategories(response.data.categories);
+          if (response.data.settings?.backgroundVideo) {
+            setBackgroundVideo(response.data.settings.backgroundVideo);
+          }
         } else {
           // Fallback to embedded data if API fails or returns empty
           const fallbackData = await import('../data/menuData');
@@ -229,7 +233,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover filter brightness-[0.65] contrast-110 scale-105"
           >
-            <source src={`${import.meta.env.BASE_URL}background.mp4`} type="video/mp4" />
+            <source src={`${import.meta.env.BASE_URL}${backgroundVideo.startsWith('/') ? backgroundVideo.slice(1) : backgroundVideo}`} type="video/mp4" />
             متصفحك لا يدعم تشغيل الفيديو
           </video>
           {/* Subtle Gradient Overlay */}

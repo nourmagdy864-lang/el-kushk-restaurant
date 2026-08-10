@@ -10,45 +10,63 @@ import {
   CheckCircle2, 
   XCircle,
   Star,
-  Package,
-  Edit2
+  Edit2,
+  Settings,
+  Video,
+  Image as ImageIcon
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { Category, MenuItem } from '../data/menuData';
+
+interface MenuItem {
+  id: string;
+  name: string;
+  category: string;
+  description?: string;
+  price?: number;
+  prices?: { sizeOrType: string; price: number }[];
+  image: string;
+  available?: boolean;
+  popular?: boolean;
+}
+
+interface Category {
+  id: string;
+  name: string;
+  icon: string;
+  image?: string;
+}
+
+interface Settings {
+  backgroundVideo?: string;
+  restaurantName?: string;
+  tagline?: string;
+}
+
+interface MenuData {
+  settings?: Settings;
+  categories: Category[];
+  items: MenuItem[];
+}
 
 export default function Admin() {
   const [location, setLocation] = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [password, setPassword] = useState('');
-  const [menuData, setMenuData] = useState<{ categories: Category[], items: MenuItem[] }>({
-    categories: [],
-    items: []
-  });
+  const [menuData, setMenuData] = useState<MenuData>({ categories: [], items: [] });
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'menu' | 'settings'>('menu');
+  const [editingCategory, setEditingCategory] = useState<string | null>(null);
+  const [editingItem, setEditingItem] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchMenu = async () => {
       try {
         const response = await axios.get('/api/menu');
-        if (response.data && response.data.items && response.data.items.length > 0) {
+        if (response.data) {
           setMenuData(response.data);
-        } else {
-          // Use fallback data if API returns empty
-          import('../data/menuData').then(data => {
-            setMenuData({
-              categories: data.CATEGORIES,
-              items: data.MENU_ITEMS
-            });
-          });
         }
       } catch (error) {
-        toast.error('فشل تحميل البيانات، يتم استخدام البيانات الاحتياطية');
-        import('../data/menuData').then(data => {
-          setMenuData({
-            categories: data.CATEGORIES,
-            items: data.MENU_ITEMS
-          });
-        });
+        toast.error('فشل تحميل البيانات');
       }
     };
     fetchMenu();
@@ -79,9 +97,37 @@ export default function Admin() {
     }
   };
 
+  const addCategory = () => {
+    const newCategory: Category = {
+      id: `cat-${Date.now()}`,
+      name: 'قسم جديد',
+      icon: '➕',
+      image: '/images/piece_box.png'
+    };
+    setMenuData(prev => ({
+      ...prev,
+      categories: [...prev.categories, newCategory]
+    }));
+  };
+
+  const updateCategory = (id: string, updates: Partial<Category>) => {
+    setMenuData(prev => ({
+      ...prev,
+      categories: prev.categories.map(c => c.id === id ? { ...c, ...updates } : c)
+    }));
+  };
+
+  const removeCategory = (id: string) => {
+    setMenuData(prev => ({
+      ...prev,
+      categories: prev.categories.filter(c => c.id !== id),
+      items: prev.items.filter(i => i.category !== id)
+    }));
+  };
+
   const addItem = (categoryId: string) => {
     const newItem: MenuItem = {
-      id: `new-${Date.now()}`,
+      id: `item-${Date.now()}`,
       name: 'صنف جديد',
       category: categoryId,
       description: 'وصف الصنف',
@@ -95,17 +141,17 @@ export default function Admin() {
     }));
   };
 
-  const removeItem = (id: string) => {
-    setMenuData(prev => ({
-      ...prev,
-      items: prev.items.filter(i => i.id !== id)
-    }));
-  };
-
   const updateItem = (id: string, updates: Partial<MenuItem>) => {
     setMenuData(prev => ({
       ...prev,
       items: prev.items.map(i => i.id === id ? { ...i, ...updates } : i)
+    }));
+  };
+
+  const removeItem = (id: string) => {
+    setMenuData(prev => ({
+      ...prev,
+      items: prev.items.filter(i => i.id !== id)
     }));
   };
 
@@ -160,115 +206,265 @@ export default function Admin() {
             >
               <ArrowLeft className="w-6 h-6" />
             </button>
-            <h1 className="text-2xl font-black gold-gradient-text">إدارة المنيو</h1>
+            <h1 className="text-2xl font-black gold-gradient-text">إدارة المطعم</h1>
           </div>
-          <button
-            onClick={handleSave}
-            disabled={loading}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-600 text-white font-black shadow-lg hover:bg-emerald-700 transition-all disabled:opacity-50"
-          >
-            <Save className="w-5 h-5" />
-            <span>{loading ? 'جاري الحفظ...' : 'حفظ التغييرات'}</span>
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setActiveTab('menu')}
+              className={`px-6 py-2.5 rounded-full font-black transition-all ${activeTab === 'menu' ? 'bg-[#D4AF37] text-black' : 'bg-[#1a1a1a] text-gray-400'}`}
+            >
+              المنيو
+            </button>
+            <button
+              onClick={() => setActiveTab('settings')}
+              className={`px-6 py-2.5 rounded-full font-black transition-all ${activeTab === 'settings' ? 'bg-[#D4AF37] text-black' : 'bg-[#1a1a1a] text-gray-400'}`}
+            >
+              الإعدادات
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={loading}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-emerald-600 text-white font-black shadow-lg hover:bg-emerald-700 transition-all disabled:opacity-50"
+            >
+              <Save className="w-5 h-5" />
+              <span>{loading ? 'جاري الحفظ...' : 'حفظ'}</span>
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        {menuData.categories.map(cat => (
-          <div key={cat.id} className="mb-12">
-            <div className="flex items-center justify-between mb-6 pb-2 border-b border-[#D4AF37]/20">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{cat.icon}</span>
-                <h2 className="text-2xl font-black text-[#D4AF37]">{cat.name}</h2>
+        {activeTab === 'menu' ? (
+          <div className="space-y-8">
+            {/* Categories Section */}
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-3xl font-black text-[#D4AF37]">الأقسام</h2>
+                <button
+                  onClick={addCategory}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold"
+                >
+                  <Plus className="w-5 h-5" />
+                  إضافة قسم
+                </button>
               </div>
-              <button
-                onClick={() => addItem(cat.id)}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold text-sm"
-              >
-                <Plus className="w-4 h-4" />
-                إضافة صنف
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {menuData.items.filter(i => i.category === cat.id).map(item => (
-                <div key={item.id} className="bg-[#121212] border border-white/5 rounded-3xl p-6 shadow-xl relative group">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => updateItem(item.id, { available: !item.available })}
-                        className={`p-2 rounded-lg border transition-all ${item.available !== false ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500' : 'bg-red-500/10 border-red-500/30 text-red-500'}`}
-                        title={item.available !== false ? 'متوفر حالياً' : 'غير متوفر'}
-                      >
-                        {item.available !== false ? <CheckCircle2 className="w-5 h-5" /> : <XCircle className="w-5 h-5" />}
-                      </button>
-                      <button
-                        onClick={() => updateItem(item.id, { popular: !item.popular })}
-                        className={`p-2 rounded-lg border transition-all ${item.popular ? 'bg-amber-500/10 border-amber-500/30 text-amber-500' : 'bg-white/5 border-white/10 text-gray-500'}`}
-                        title="الأكثر طلباً"
-                      >
-                        <Star className="w-5 h-5" fill={item.popular ? 'currentColor' : 'none'} />
-                      </button>
-                    </div>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-all"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <label className="text-xs text-gray-500 block mb-1">اسم الصنف</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {menuData.categories.map(cat => (
+                  <div key={cat.id} className="bg-[#121212] border border-white/5 rounded-2xl p-6 space-y-4">
+                    <div className="flex justify-between items-start">
                       <input
                         type="text"
-                        value={item.name}
-                        onChange={(e) => updateItem(item.id, { name: e.target.value })}
-                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all"
+                        value={cat.name}
+                        onChange={(e) => updateCategory(cat.id, { name: e.target.value })}
+                        className="flex-1 bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-white focus:border-[#D4AF37] outline-none"
                       />
+                      <button
+                        onClick={() => removeCategory(cat.id)}
+                        className="p-2 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-all ml-2"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
                     </div>
                     <div>
-                      <label className="text-xs text-gray-500 block mb-1">السعر (ج.م)</label>
+                      <label className="text-xs text-gray-500 block mb-1">الأيقونة</label>
                       <input
-                        type="number"
-                        value={item.price || 0}
-                        onChange={(e) => updateItem(item.id, { price: Number(e.target.value) })}
-                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all"
+                        type="text"
+                        value={cat.icon}
+                        onChange={(e) => updateCategory(cat.id, { icon: e.target.value })}
+                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-white focus:border-[#D4AF37] outline-none text-center text-2xl"
                       />
                     </div>
                     <div>
-                      <label className="text-xs text-gray-500 block mb-1">الوصف</label>
-                      <textarea
-                        value={item.description}
-                        onChange={(e) => updateItem(item.id, { description: e.target.value })}
-                        className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all h-20 resize-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-xs text-gray-500 block mb-1">مسار الصورة</label>
+                      <label className="text-xs text-gray-500 block mb-1">صورة القسم</label>
                       <div className="flex gap-2">
-                        <div className="w-12 h-12 rounded-lg bg-black overflow-hidden border border-white/10 flex-shrink-0">
-                          <img 
-                            src={item.image.startsWith('/') ? `${import.meta.env.BASE_URL}${item.image.slice(1)}` : item.image} 
-                            className="w-full h-full object-cover"
-                            alt=""
-                          />
+                        <div className="w-12 h-12 rounded-lg bg-black overflow-hidden border border-white/10">
+                          <img src={`${import.meta.env.BASE_URL}${cat.image?.slice(1) || 'images/piece_box.png'}`} className="w-full h-full object-cover" alt="" />
                         </div>
                         <input
                           type="text"
-                          value={item.image}
-                          onChange={(e) => updateItem(item.id, { image: e.target.value })}
-                          className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-2 text-white focus:border-[#D4AF37] outline-none transition-all text-xs"
+                          value={cat.image || ''}
+                          onChange={(e) => updateCategory(cat.id, { image: e.target.value })}
+                          className="flex-1 bg-[#1a1a1a] border border-white/10 rounded-lg px-3 py-2 text-white focus:border-[#D4AF37] outline-none text-xs"
+                          placeholder="/images/..."
                         />
                       </div>
                     </div>
+                    <div className="text-xs text-gray-400">
+                      {menuData.items.filter(i => i.category === cat.id).length} صنف
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Items Section */}
+            <div>
+              <h2 className="text-3xl font-black text-[#D4AF37] mb-6">الأصناف</h2>
+              {menuData.categories.map(cat => {
+                const items = menuData.items.filter(i => i.category === cat.id);
+                if (items.length === 0) return null;
+                return (
+                  <div key={cat.id} className="mb-8">
+                    <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#D4AF37]/20">
+                      <h3 className="text-xl font-bold text-[#D4AF37]">{cat.icon} {cat.name}</h3>
+                      <button
+                        onClick={() => addItem(cat.id)}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all font-bold text-sm"
+                      >
+                        <Plus className="w-4 h-4" />
+                        إضافة
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {items.map(item => (
+                        <div key={item.id} className="bg-[#121212] border border-white/5 rounded-xl p-4 space-y-3">
+                          <div className="flex justify-between items-start gap-2">
+                            <input
+                              type="text"
+                              value={item.name}
+                              onChange={(e) => updateItem(item.id, { name: e.target.value })}
+                              className="flex-1 bg-[#1a1a1a] border border-white/10 rounded-lg px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-sm"
+                            />
+                            <button
+                              onClick={() => removeItem(item.id)}
+                              className="p-1.5 rounded-lg bg-red-500/10 border border-red-500/30 text-red-500 hover:bg-red-500 hover:text-white transition-all flex-shrink-0"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => updateItem(item.id, { available: !item.available })}
+                              className={`p-1.5 rounded-lg border transition-all ${item.available !== false ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-500' : 'bg-red-500/10 border-red-500/30 text-red-500'}`}
+                            >
+                              {item.available !== false ? <CheckCircle2 className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
+                            </button>
+                            <button
+                              onClick={() => updateItem(item.id, { popular: !item.popular })}
+                              className={`p-1.5 rounded-lg border transition-all ${item.popular ? 'bg-amber-500/10 border-amber-500/30 text-amber-500' : 'bg-white/5 border-white/10 text-gray-500'}`}
+                            >
+                              <Star className="w-4 h-4" fill={item.popular ? 'currentColor' : 'none'} />
+                            </button>
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-gray-500 block mb-1">السعر</label>
+                            {item.prices ? (
+                              <div className="space-y-1">
+                                {item.prices.map((p, idx) => (
+                                  <div key={idx} className="flex gap-1">
+                                    <input
+                                      type="text"
+                                      value={p.sizeOrType}
+                                      onChange={(e) => {
+                                        const newPrices = [...item.prices!];
+                                        newPrices[idx].sizeOrType = e.target.value;
+                                        updateItem(item.id, { prices: newPrices });
+                                      }}
+                                      className="flex-1 bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-xs"
+                                    />
+                                    <input
+                                      type="number"
+                                      value={p.price}
+                                      onChange={(e) => {
+                                        const newPrices = [...item.prices!];
+                                        newPrices[idx].price = Number(e.target.value);
+                                        updateItem(item.id, { prices: newPrices });
+                                      }}
+                                      className="w-16 bg-[#1a1a1a] border border-white/10 rounded px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-xs"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <input
+                                type="number"
+                                value={item.price || 0}
+                                onChange={(e) => updateItem(item.id, { price: Number(e.target.value) })}
+                                className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-sm"
+                              />
+                            )}
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-gray-500 block mb-1">الوصف</label>
+                            <textarea
+                              value={item.description || ''}
+                              onChange={(e) => updateItem(item.id, { description: e.target.value })}
+                              className="w-full bg-[#1a1a1a] border border-white/10 rounded-lg px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-xs h-12 resize-none"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-gray-500 block mb-1">الصورة</label>
+                            <div className="flex gap-1">
+                              <div className="w-10 h-10 rounded-lg bg-black overflow-hidden border border-white/10 flex-shrink-0">
+                                <img src={`${import.meta.env.BASE_URL}${item.image.slice(1)}`} className="w-full h-full object-cover" alt="" />
+                              </div>
+                              <input
+                                type="text"
+                                value={item.image}
+                                onChange={(e) => updateItem(item.id, { image: e.target.value })}
+                                className="flex-1 bg-[#1a1a1a] border border-white/10 rounded-lg px-2 py-1 text-white focus:border-[#D4AF37] outline-none text-xs"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        ))}
+        ) : (
+          <div className="max-w-2xl">
+            <h2 className="text-3xl font-black text-[#D4AF37] mb-6">إعدادات الموقع</h2>
+            <div className="bg-[#121212] border border-white/5 rounded-2xl p-8 space-y-6">
+              <div>
+                <label className="text-sm font-bold text-gray-300 block mb-2">رابط فيديو الخلفية</label>
+                <input
+                  type="text"
+                  value={menuData.settings?.backgroundVideo || '/background.mp4'}
+                  onChange={(e) => setMenuData(prev => ({
+                    ...prev,
+                    settings: { ...prev.settings, backgroundVideo: e.target.value }
+                  }))}
+                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] outline-none transition-all"
+                  placeholder="/background.mp4"
+                />
+                <p className="text-xs text-gray-500 mt-2">مثال: /background.mp4</p>
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-300 block mb-2">اسم المطعم</label>
+                <input
+                  type="text"
+                  value={menuData.settings?.restaurantName || 'مطعم الكشك'}
+                  onChange={(e) => setMenuData(prev => ({
+                    ...prev,
+                    settings: { ...prev.settings, restaurantName: e.target.value }
+                  }))}
+                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] outline-none transition-all"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-gray-300 block mb-2">الشعار</label>
+                <input
+                  type="text"
+                  value={menuData.settings?.tagline || 'طعم بيكمل مزاجك'}
+                  onChange={(e) => setMenuData(prev => ({
+                    ...prev,
+                    settings: { ...prev.settings, tagline: e.target.value }
+                  }))}
+                  className="w-full bg-[#1a1a1a] border border-white/10 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] outline-none transition-all"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
