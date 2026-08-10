@@ -49,22 +49,22 @@ export default function Home() {
     const fetchMenu = async () => {
       try {
         const response = await axios.get('/api/menu');
-        if (response.data && response.data.items && response.data.items.length > 0) {
-          setMenuItems(response.data.items);
+        if (response.data && response.data.categories && response.data.categories.length > 0) {
+          setMenuItems(response.data.items || []);
           setCategories(response.data.categories);
           if (response.data.settings?.backgroundVideo) {
             setBackgroundVideo(response.data.settings.backgroundVideo);
           }
         } else {
-          // Fallback to embedded data if API fails or returns empty
           const fallbackData = await import('../data/menuData');
           setMenuItems(fallbackData.MENU_ITEMS);
+          setCategories(fallbackData.CATEGORIES);
         }
       } catch (error) {
         console.error('Failed to fetch menu:', error);
-        // Fallback to static data
         import('../data/menuData').then(data => {
           setMenuItems(data.MENU_ITEMS);
+          setCategories(data.CATEGORIES);
         });
       }
     };

@@ -1,7 +1,6 @@
 {
   "settings": {
     "backgroundVideo": "/background.mp4",
-    "logoText": "ك",
     "restaurantName": "مطعم الكشك",
     "tagline": "طعم بيكمل مزاجك",
     "established": "EST. 2018"
@@ -9,7 +8,7 @@
   "categories": [
     { "id": "hawaoshi", "name": "حواوشي مصراوي", "icon": "🫓", "image": "/images/hawawshi.png" },
     { "id": "chicken-burger", "name": "برجر فراخ", "icon": "🍔", "image": "/images/chicken_burger.png" },
-    { "id": "smash-burger", "name": "تتشيكن سماش", "icon": "🔥", "image": "/images/smash_beef.png" },
+    { "id": "smash-burger", "name": "تشيكن سماش", "icon": "🔥", "image": "/images/smash_beef.png" },
     { "id": "meals", "name": "الوجبات", "icon": "🍱", "image": "/images/meals.png" },
     { "id": "fries", "name": "فرايز", "icon": "🍟", "image": "/images/fries.png" },
     { "id": "crispy-box", "name": "بوكس كريسبى", "icon": "📦", "image": "/images/piece_box.png" },
@@ -46,7 +45,7 @@
     { "id": "sb-5", "name": "سماش هالوبينو", "category": "smash-burger", "prices": [{ "sizeOrType": "سينجل", "price": 100 }, { "sizeOrType": "دبل", "price": 140 }, { "sizeOrType": "تربييل", "price": 180 }], "image": "/images/smash_beef.png", "available": true },
     { "id": "sb-6", "name": "تشيز برجر", "category": "smash-burger", "prices": [{ "sizeOrType": "سينجل", "price": 105 }, { "sizeOrType": "دبل", "price": 145 }, { "sizeOrType": "تربييل", "price": 185 }], "image": "/images/smash_beef.png", "available": true },
     { "id": "sb-7", "name": "سماش سموك", "category": "smash-burger", "prices": [{ "sizeOrType": "سينجل", "price": 105 }, { "sizeOrType": "دبل", "price": 145 }, { "sizeOrType": "تربييل", "price": 185 }], "image": "/images/smash_beef.png", "available": true },
-    { "id": "m-1", "name": "وجبه كريسي", "category": "meals", "price": 180, "image": "/images/meals.png", "available": true },
+    { "id": "m-1", "name": "وجبه كرسبي", "category": "meals", "price": 180, "image": "/images/meals.png", "available": true },
     { "id": "m-2", "name": "وجبه دجاج ميكسيكي", "category": "meals", "price": 195, "image": "/images/meals.png", "available": true },
     { "id": "m-3", "name": "وجبه شيش طاووق", "category": "meals", "price": 200, "image": "/images/meals.png", "available": true },
     { "id": "m-4", "name": "وجبه كفته", "category": "meals", "price": 220, "image": "/images/meals.png", "available": true },
